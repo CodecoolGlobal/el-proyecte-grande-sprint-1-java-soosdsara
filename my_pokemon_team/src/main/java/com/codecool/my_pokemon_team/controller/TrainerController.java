@@ -5,10 +5,9 @@ import com.codecool.my_pokemon_team.controller.dto.TrainerDTO;
 import com.codecool.my_pokemon_team.model.pokemon.Pokemon;
 import com.codecool.my_pokemon_team.model.trainer.Trainer;
 import com.codecool.my_pokemon_team.service.TrainerService;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
 
 @RestController
 public class TrainerController {
@@ -27,6 +26,11 @@ public class TrainerController {
     @PostMapping("/api/trainer/{trainerId}")
     public Pokemon addPokemon(@RequestBody PokemonDTO pokemonDTO, @PathVariable int trainerId) {
         return trainerService.addPokemon(trainerId, pokemonDTO);
+    }
+
+    @GetMapping("/api/trainer/{id}/pokemons")
+    public Set<Pokemon> getPokemonsOfTrainer(@PathVariable int id) {
+        return trainerService.getPokemonsOfTrainer(id);
     }
 
 }

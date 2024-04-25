@@ -1,19 +1,28 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
+import React from 'react'
 import Login from "./Pages/Login.jsx";
-import "./index.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ReactDOM from 'react-dom/client'
 import Search from "./Pages/Search.jsx";
+import UserPage from './Pages/UserPage.jsx'
+import Registration from './Pages/Registration.jsx';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Login/>
+    },
+    {
+        path: "/registration",
+        element: <Registration/>
+    },
+    {
+        path: "/userpage/:id",
+        element: <UserPage/>
+    },
   {
-    path: "/",
-    element: <Login />,
-  },
-  {
-    path: "/:id/search",
+    path: "/userpage/:id/search",
     element: <Search />,
-  },
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

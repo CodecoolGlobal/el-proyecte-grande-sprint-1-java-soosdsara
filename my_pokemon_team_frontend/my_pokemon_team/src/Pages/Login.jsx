@@ -1,8 +1,8 @@
-import React from 'react'
+import LoginForm from '../Components/LoginForm'
 
 function Login() {
   return (
-    <div>Pokemon</div>
+    <LoginForm />
   )
 }
 

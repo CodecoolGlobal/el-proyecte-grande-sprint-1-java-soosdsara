@@ -32,4 +32,8 @@ public class Trainer {
         return name;
     }
 
+    public Set<Pokemon> getPokemonTeam() {
+        return new HashSet<>(pokemonTeam);
+    }
+
 }

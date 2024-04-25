@@ -6,10 +6,9 @@ import com.codecool.my_pokemon_team.model.pokemon.PokemonType;
 import com.codecool.my_pokemon_team.model.trainer.Trainer;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
+
 
 @Service
 public class TrainerService {
@@ -18,6 +17,9 @@ public class TrainerService {
 
     public TrainerService() {
         this.trainers = new HashSet<>();
+
+        TrainerInitializer trainerInitializer = new TrainerInitializer();
+        trainers.add(trainerInitializer.initializeTrainers());
     }
 
     public Trainer addTrainer(String name, String password) {
@@ -31,6 +33,11 @@ public class TrainerService {
         Pokemon pokemon = createPokemonFromDTO(pokemonDTO);
         trainer.addPokemon(pokemon);
         return pokemon;
+    }
+
+    public Set<Pokemon> getPokemonsOfTrainer(int trainerId) {
+        return trainers.stream().filter(trainer ->trainer.checkTrainerId(trainerId))
+                .flatMap(trainer -> trainer.getPokemonTeam().stream()).collect(Collectors.toSet());
     }
 
     private Trainer findTrainerById(int trainerId) {
@@ -59,4 +66,6 @@ public class TrainerService {
         }
         return types;
     }
+
+
 }
