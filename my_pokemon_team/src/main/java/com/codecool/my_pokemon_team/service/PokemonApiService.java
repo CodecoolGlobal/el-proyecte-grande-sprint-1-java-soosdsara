@@ -53,7 +53,7 @@ public class PokemonApiService {
         String url = String.format("%s/pokemon/%s/", BASE_URL, name);
         JsonNode pokemonObj = getJsonNode(url);
 
-        String pic = pokemonObj.get("sprites").get("front_default").asText();
+        String pic = pokemonObj.get("sprites").get("other").get("home").get("front_default").asText();
         String species = pokemonObj.get("name").asText();
         int hp = getPokemonStat(pokemonObj, 0);
         int attack = getPokemonStat(pokemonObj, 1);
