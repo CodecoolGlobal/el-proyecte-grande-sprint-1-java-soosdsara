@@ -18,4 +18,8 @@ public class Trainer {
         this.password = password;
         this.pokemonTeam = new HashSet<>();
     }
+
+    public String getName() {
+        return name;
+    }
 }
