@@ -26,7 +26,7 @@ public class TrainerController {
 
     @PostMapping("/api/trainer/{trainerId}")
     public Pokemon addPokemon(@RequestBody PokemonDTO pokemonDTO, @PathVariable int trainerId) {
-        return trainerService.addPokemon(pokemonDTO);
+        return trainerService.addPokemon(trainerId, pokemonDTO);
     }
 
 }

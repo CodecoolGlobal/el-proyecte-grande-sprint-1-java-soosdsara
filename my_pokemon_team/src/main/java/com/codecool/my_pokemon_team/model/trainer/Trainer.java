@@ -19,11 +19,17 @@ public class Trainer {
         this.pokemonTeam = new HashSet<>();
     }
 
-    public boolean checkTrainerId(int id) {
-        return trainerId == id;
+    public boolean checkTrainerId(int trainerId) {
+        return this.trainerId == trainerId;
     }
 
     public void addPokemon(Pokemon pokemon) {
         pokemonTeam.add(pokemon);
+        System.out.println(pokemonTeam);
     }
+
+    public String getName() {
+        return name;
+    }
+
 }

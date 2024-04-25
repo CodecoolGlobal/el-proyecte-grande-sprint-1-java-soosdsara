@@ -1,7 +1,6 @@
 package com.codecool.my_pokemon_team.service;
 
 import com.codecool.my_pokemon_team.controller.dto.PokemonDTO;
-import com.codecool.my_pokemon_team.model.pokemon.PokemonType;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

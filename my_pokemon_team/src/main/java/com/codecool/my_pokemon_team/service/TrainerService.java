@@ -26,7 +26,7 @@ public class TrainerService {
         return trainer;
     }
 
-    public Trainer addPokemon(int trainerId, PokemonDTO pokemonDTO) {
+    public Pokemon addPokemon(int trainerId, PokemonDTO pokemonDTO) {
         Trainer trainer = trainers.stream()
                 .filter(t -> t.checkTrainerId(trainerId))
                 .findFirst()
@@ -34,7 +34,7 @@ public class TrainerService {
         List<PokemonType> types = getPokemonTypes(pokemonDTO.types());
         Pokemon pokemon = new Pokemon(pokemonDTO.species(), types, pokemonDTO.pic(), pokemonDTO.hp(), pokemonDTO.attack(), pokemonDTO.defense());
         trainer.addPokemon(pokemon);
-        return trainer;
+        return pokemon;
     }
 
     private List<PokemonType> getPokemonTypes(List<String> typesStrings) {
