@@ -7,7 +7,7 @@ public class Pokemon {
     private final int pokemonId;
     private final String species;
     private String nickName;
-    private final List<PokemonType> type;
+    private final List<PokemonType> types;
     private final String pic;
     private final int hp;
     private final int attack;
@@ -16,7 +16,7 @@ public class Pokemon {
     public Pokemon(String species, List<PokemonType> type, String pic, int hp, int attack, int defense) {
         this.pokemonId = ID++;
         this.species = species;
-        this.type = type;
+        this.types = type;
         this.pic = pic;
         this.hp = hp;
         this.attack = attack;
@@ -36,8 +36,8 @@ public class Pokemon {
         return nickName;
     }
 
-    public List<PokemonType> getType() {
-        return type;
+    public List<PokemonType> getTypes() {
+        return types;
     }
 
     public String getPic() {
