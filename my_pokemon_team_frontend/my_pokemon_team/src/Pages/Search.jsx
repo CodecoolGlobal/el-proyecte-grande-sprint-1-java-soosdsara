@@ -1,55 +1,42 @@
-import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { useState } from "react";
+import SearchForm from "../Components/SearchForm";
+import PokemonList from "../Components/PokemonList";
+
 
 function Search() {
   const { id } = useParams();
-
-  const [search, setSearch] = useState("");
   const [pokemons, setPokemons] = useState([]);
 
-  const fetchPokemons = () => {
-    return fetch(`/api/pokemons?search=${search}`).then((res) => res.json());
+  const fetchPokemons = async (search) => {
+      const response = await fetch(`/api/pokemons?search=${search}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch pokemons");
+      }
+      const data = await response.json();
+      setPokemons(data);
   };
 
-  async function handleSearch(e) {
-    e.preventDefault();
-    try {
-      const data = await fetchPokemons();
-      setPokemons(data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  const handleSearch = (search) => {
+    fetchPokemons(search);
+  };
 
-  async function addPokemon(pokemon) {
-    const response = await fetch(`/api/trainer/${id}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(pokemon),
-    });
-    return await response.json();
-  }
+  const addPokemon = async (pokemon) => {
+      const response = await fetch(`/api/trainer/${id}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(pokemon),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to add pokemon");
+      }
+      return await response.json();
+  };
 
   return (
     <div>
-      <form onSubmit={handleSearch}>
-        <input
-          name="pokemon"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <button type="submit">Search</button>
-      </form>
-      <ul>
-        {pokemons.map((pokemon) => (
-          <>
-            <li>{pokemon.species}</li>
-            <button type="button" onClick={() => addPokemon(pokemon)}>
-              Add to my team
-            </button>
-          </>
-        ))}
-      </ul>
+      <SearchForm onSubmit={handleSearch} />
+      <PokemonList pokemons={pokemons} onAddPokemon={addPokemon} />
     </div>
   );
 }
