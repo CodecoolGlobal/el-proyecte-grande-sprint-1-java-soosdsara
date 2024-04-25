@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 
 const Pokemon = ({pokemon}) => {
-  const[id, setId] = useState(pokemon?.id);
+  const[id, setId] = useState(pokemon?.pokemonId);
   const[species, setSpecies] = useState(pokemon?.species);
   const[type, setType] = useState(pokemon?.type);
   const[pic, setPic] = useState(pokemon?.pic);

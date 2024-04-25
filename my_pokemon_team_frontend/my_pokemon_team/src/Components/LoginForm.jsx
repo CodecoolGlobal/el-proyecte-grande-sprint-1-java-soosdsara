@@ -42,7 +42,7 @@ function LoginForm() {
             </form>
             <div>
                 <button onClick={() => navigate("/registration")}>Sign up</button>
-                <button onClick={() => navigate(`/userpage/${id}`)}>Log in</button>
+                <button onClick={() => navigate(`/userpage/0`)}>Log in</button> 
             </div>
         </div>
     )

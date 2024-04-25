@@ -1,10 +1,10 @@
 import React from 'react'
+import Login from "./Pages/Login.jsx";
 import ReactDOM from 'react-dom/client'
-import Login from './Pages/Login.jsx'
-import './index.css'
+import Search from "./Pages/Search.jsx";
 import UserPage from './Pages/UserPage.jsx'
-import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Registration from './Pages/Registration.jsx';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([
     {
@@ -19,10 +19,14 @@ const router = createBrowserRouter([
         path: "/userpage/:id",
         element: <UserPage/>
     },
-])
+  {
+    path: "/userpage/:id/search",
+    element: <Search />,
+  }
+]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-    <React.StrictMode>
-        <RouterProvider router={router}/>
-    </React.StrictMode>,
-)
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
+);

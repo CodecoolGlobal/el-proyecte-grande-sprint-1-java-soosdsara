@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useLocation } from "react-router-dom";
-import Pokemon from '../Component/Pokemon';
+import Pokemon from '../Components/Pokemon';
 
 const UserPage = () => {
   const trainerId = useLocation().pathname.split("/userpage/")[1];
