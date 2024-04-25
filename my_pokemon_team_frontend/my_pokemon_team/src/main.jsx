@@ -11,7 +11,7 @@ const router = createBrowserRouter([
     element : <Login />
   },
   {
-    path: "/userpage",
+    path: "/userpage/:id",
     element : <UserPage />
   },
 ])
