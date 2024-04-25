@@ -12,9 +12,10 @@ public class Trainer {
     private String password;
     private final Set<Pokemon> pokemonTeam;
 
-    public Trainer(String name) {
+    public Trainer(String name, String password) {
         this.trainerId = ID++;
         this.name = name;
+        this.password = password;
         this.pokemonTeam = new HashSet<>();
     }
 }
