@@ -27,14 +27,29 @@ public class TrainerService {
     }
 
     public Pokemon addPokemon(int trainerId, PokemonDTO pokemonDTO) {
-        Trainer trainer = trainers.stream()
-                .filter(t -> t.checkTrainerId(trainerId))
-                .findFirst()
-                .orElseThrow();
-        List<PokemonType> types = getPokemonTypes(pokemonDTO.types());
-        Pokemon pokemon = new Pokemon(pokemonDTO.species(), types, pokemonDTO.pic(), pokemonDTO.hp(), pokemonDTO.attack(), pokemonDTO.defense());
+        Trainer trainer = findTrainerById(trainerId);
+        Pokemon pokemon = createPokemonFromDTO(pokemonDTO);
         trainer.addPokemon(pokemon);
         return pokemon;
+    }
+
+    private Trainer findTrainerById(int trainerId) {
+        return trainers.stream()
+                .filter(t -> t.checkTrainerId(trainerId))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Trainer not found with ID: " + trainerId));
+    }
+
+    private Pokemon createPokemonFromDTO(PokemonDTO pokemonDTO) {
+        List<PokemonType> types = getPokemonTypes(pokemonDTO.types());
+        return new Pokemon(
+                pokemonDTO.species(),
+                types,
+                pokemonDTO.pic(),
+                pokemonDTO.hp(),
+                pokemonDTO.attack(),
+                pokemonDTO.defense()
+        );
     }
 
     private List<PokemonType> getPokemonTypes(List<String> typesStrings) {
