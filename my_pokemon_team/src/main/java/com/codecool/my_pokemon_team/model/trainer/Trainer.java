@@ -18,4 +18,14 @@ public class Trainer {
         this.password = password;
         this.pokemonTeam = new HashSet<>();
     }
+
+    public boolean checkTrainerId(int trainerId) {
+        return this.trainerId == trainerId;
+    }
+    public Set<Pokemon> getPokemonTeam() {
+        return new HashSet<>(pokemonTeam);
+    }
+    public void addPokemon(Pokemon pokemon) {
+        pokemonTeam.add(pokemon);
+    }
 }
