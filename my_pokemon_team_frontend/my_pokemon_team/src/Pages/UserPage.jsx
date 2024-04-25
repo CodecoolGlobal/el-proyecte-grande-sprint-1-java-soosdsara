@@ -9,7 +9,7 @@ const UserPage = () => {
 //const id = useLocation().pathname.split("/userpage/")[1];
   useEffect(() =>{
     async function fetchPokemons(){
-      const response = await fetch (`/api/pokemons?search=cha`);
+      const response = await fetch (`/api/pokemons/trainer/1`);
       const pokemons = await response.json();
       console.log(pokemons);
       setPokemons(pokemons);
