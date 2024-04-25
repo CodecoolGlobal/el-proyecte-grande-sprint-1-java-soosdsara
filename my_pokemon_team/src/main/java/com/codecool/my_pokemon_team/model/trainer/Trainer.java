@@ -22,4 +22,16 @@ public class Trainer {
     public String getName() {
         return name;
     }
+
+    public boolean checkTrainerId(int trainerId) {
+        return this.trainerId == trainerId;
+    }
+
+    public Set<Pokemon> getPokemonTeam() {
+        return new HashSet<>(pokemonTeam);
+    }
+
+    public void addPokemon(Pokemon pokemon) {
+        pokemonTeam.add(pokemon);
+    }
 }
