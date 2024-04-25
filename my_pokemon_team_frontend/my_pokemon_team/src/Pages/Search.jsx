@@ -14,7 +14,7 @@ function Search() {
   async function handleSearch(e) {
     e.preventDefault();
     try {
-      const data = fetchPokemons();
+      const data = await fetchPokemons();
       setPokemons(data);
     } catch (error) {
       console.error(error);
