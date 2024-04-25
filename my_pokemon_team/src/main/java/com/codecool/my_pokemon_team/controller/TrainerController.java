@@ -33,4 +33,5 @@ public class TrainerController {
         return trainerService.getPokemonsOfTrainer(id);
     }
 
+
 }
