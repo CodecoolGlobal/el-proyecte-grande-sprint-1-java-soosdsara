@@ -1,13 +1,19 @@
 import { useState } from 'react'
-import { useNavigate, useParams} from 'react-router-dom';
-
-
+import { useNavigate, useParams } from 'react-router-dom';
 
 function LoginForm() {
     const navigate = useNavigate();
     const { id } = useParams();
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
+
+    function handleNameChange(e) {
+        setName(e.target.value)
+    }
+
+    function handlePasswordChange(e) {
+        setPassword(e.target.value);
+    }
 
     return (
         <div>
@@ -19,7 +25,7 @@ function LoginForm() {
                             name="loginName"
                             id="loginName"
                             value={name}
-                            onChange={e => setName(e.target.value)}
+                            onChange={handleNameChange}
                         />
                     </label>
                 </div>
@@ -29,7 +35,7 @@ function LoginForm() {
                             name="loginPassword"
                             id="loginPassword"
                             value={password}
-                            onChange={e => setPassword(e.target.value)}
+                            onChange={handlePasswordChange}
                         />
                     </label>
                 </div>

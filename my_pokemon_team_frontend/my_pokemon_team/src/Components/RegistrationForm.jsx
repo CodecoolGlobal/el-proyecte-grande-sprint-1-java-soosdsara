@@ -20,14 +20,17 @@ function RegistrationForm() {
         navigate("/");
     }
 
-    const handlePasswordChange = (event) => {
-        setPassword(event.target.value);
-    };
+    function handleNameChange(e) {
+        setName(e.target.value)
+    }
 
-    const togglePasswordVisibility = () => {
+    function handlePasswordChange(e) {
+        setPassword(e.target.value);
+    }
+
+    function togglePasswordVisibility() {
         setShowPassword(!showPassword);
-    };
-
+    }
 
     return (
         <div>
@@ -39,7 +42,7 @@ function RegistrationForm() {
                             name="RegisterName"
                             id="RegisterName"
                             value={name}
-                            onChange={e => setName(e.target.value)}
+                            onChange={handleNameChange}
                         />
                     </label>
                 </div>
