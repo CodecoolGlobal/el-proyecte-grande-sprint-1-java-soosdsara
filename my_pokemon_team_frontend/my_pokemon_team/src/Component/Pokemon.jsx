@@ -16,7 +16,7 @@ const Pokemon = ({pokemon}) => {
     <div>
       <label>ID:</label><label>{id}</label><br></br>
       <label>Species:</label><label>{species}</label><br></br>
-      <label>Type:</label><label>{type}</label><br></br>
+      <label>Type:</label><div>{type.map((t) => <div key={t}>{t}</div>)}</div><br></br>
       <label>Picture:</label><img src={pic} alt="picture" /><br></br>
       <label>HP:</label><label>{hp}</label><br></br>
       <label>Attack:</label><label>{attack}</label><br></br>

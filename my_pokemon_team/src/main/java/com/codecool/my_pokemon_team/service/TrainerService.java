@@ -36,7 +36,7 @@ public class TrainerService {
         trainers.add(trainer);
         trainer.addPokemon(new Pokemon(
                 "charmeleon",
-                List.of(PokemonType.FIRE),
+                List.of(PokemonType.FIRE, PokemonType.BUG),
                 "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png",
                 58,
                 64,
