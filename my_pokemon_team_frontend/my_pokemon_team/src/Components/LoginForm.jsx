@@ -1,7 +1,10 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+
 
 
 function LoginForm() {
+    const navigate = useNavigate();
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
 
@@ -31,7 +34,7 @@ function LoginForm() {
                 </div>
             </form>
             <div>
-                <button>Sign up</button>
+                <button onClick={() => navigate("/registration")}>Sign up</button>
                 <button>Log in</button>
             </div>
         </div>
