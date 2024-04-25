@@ -15,6 +15,9 @@ public class TrainerService {
         this.trainers = new HashSet<>();
     }
 
-
-
+    public Trainer addTrainer(String name, String password) {
+        Trainer trainer = new Trainer(name, password);
+        this.trainers.add(trainer);
+        return trainer;
+    }
 }
