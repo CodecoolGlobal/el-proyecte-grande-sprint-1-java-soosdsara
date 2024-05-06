@@ -1,12 +1,18 @@
 package com.codecool.my_pokemon_team.service;
 
 import com.codecool.my_pokemon_team.controller.dto.PokemonDTO;
+import com.codecool.my_pokemon_team.controller.dto.TrainerDTO;
 import com.codecool.my_pokemon_team.model.pokemon.Pokemon;
 import com.codecool.my_pokemon_team.model.pokemon.PokemonType;
 import com.codecool.my_pokemon_team.model.trainer.Trainer;
+import com.codecool.my_pokemon_team.model.trainer.TrainerEntity;
+import com.codecool.my_pokemon_team.repository.TrainerRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -15,17 +21,28 @@ public class TrainerService {
 
     private final Set<Trainer> trainers;
 
-    public TrainerService() {
+    private final TrainerRepository trainerRepository;
+
+    public TrainerService(TrainerRepository trainerRepository) {
+        this.trainerRepository = trainerRepository;
         this.trainers = new HashSet<>();
 
         TrainerInitializer trainerInitializer = new TrainerInitializer();
         trainers.add(trainerInitializer.initializeTrainers());
     }
 
-    public Trainer addTrainer(String name, String password) {
-        Trainer trainer = new Trainer(name, password);
-        this.trainers.add(trainer);
-        return trainer;
+    public TrainerDTO addTrainer(String name, String password) {
+        TrainerDTO trainerDTO = new TrainerDTO(name, password);
+        trainerRepository.save(createTrainerEntity(name, password));
+        return trainerDTO;
+    }
+
+    private TrainerEntity createTrainerEntity(String name, String password) {
+        TrainerEntity trainerEntity = new TrainerEntity();
+        trainerEntity.setTrainerName(name);
+        trainerEntity.setPassword(password);
+
+        return trainerEntity;
     }
 
     public Pokemon addPokemon(int trainerId, PokemonDTO pokemonDTO) {
@@ -36,7 +53,7 @@ public class TrainerService {
     }
 
     public Set<Pokemon> getPokemonsOfTrainer(int trainerId) {
-        return trainers.stream().filter(trainer ->trainer.checkTrainerId(trainerId))
+        return trainers.stream().filter(trainer -> trainer.checkTrainerId(trainerId))
                 .flatMap(trainer -> trainer.getPokemonTeam().stream()).collect(Collectors.toSet());
     }
 
@@ -66,6 +83,4 @@ public class TrainerService {
         }
         return types;
     }
-
-
 }

@@ -20,7 +20,7 @@ public class TrainerController {
     }
 
     @PostMapping
-    public Trainer registerTrainer(@RequestBody TrainerDTO trainerDTO) {
+    public TrainerDTO registerTrainer(@RequestBody TrainerDTO trainerDTO) {
         return trainerService.addTrainer(trainerDTO.name(), trainerDTO.password());
     }
 
