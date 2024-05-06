@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @RestController
+@RequestMapping("/api/trainer")
 public class TrainerController {
 
     private final TrainerService trainerService;
@@ -18,17 +19,17 @@ public class TrainerController {
         this.trainerService = trainerService;
     }
 
-    @PostMapping("/api/register-trainer")
+    @PostMapping
     public Trainer registerTrainer(@RequestBody TrainerDTO trainerDTO) {
         return trainerService.addTrainer(trainerDTO.name(), trainerDTO.password());
     }
 
-    @PostMapping("/api/trainer/{trainerId}")
+    @PostMapping("/{trainerId}")
     public Pokemon addPokemon(@RequestBody PokemonDTO pokemonDTO, @PathVariable int trainerId) {
         return trainerService.addPokemon(trainerId, pokemonDTO);
     }
 
-    @GetMapping("/api/trainer/{id}/pokemons")
+    @GetMapping("/{id}/pokemons")
     public Set<Pokemon> getPokemonsOfTrainer(@PathVariable int id) {
         return trainerService.getPokemonsOfTrainer(id);
     }

@@ -10,7 +10,7 @@ function RegistrationForm() {
     async function postTrainer(e) {
         e.preventDefault();
 
-        await fetch('/api/register-trainer', {
+        await fetch('/api/trainer', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
