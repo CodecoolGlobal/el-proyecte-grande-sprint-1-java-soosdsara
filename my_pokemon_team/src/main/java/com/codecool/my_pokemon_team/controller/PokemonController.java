@@ -14,15 +14,15 @@ import java.util.List;
 @RequestMapping("/api/pokemons")
 public class PokemonController {
 
-    private final PokemonApiService pokemonService;
+    private final PokemonApiService pokemonApiService;
 
     public PokemonController(PokemonApiService pokemonService) {
-        this.pokemonService = pokemonService;
+        this.pokemonApiService = pokemonService;
     }
 
     @GetMapping
     public List<PokemonDTO> getFilteredPokemons(@RequestParam String search) throws JsonProcessingException {
-        return pokemonService.getSearchedPokemons(search);
+        return pokemonApiService.getSearchedPokemons(search);
     }
 
 

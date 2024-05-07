@@ -1,11 +1,14 @@
 package com.codecool.my_pokemon_team.service;
 
 import com.codecool.my_pokemon_team.controller.dto.PokemonDTO;
+import com.codecool.my_pokemon_team.model.pokemon.PokemonSpecies;
+import com.codecool.my_pokemon_team.repository.PokemonSpeciesRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,37 +18,42 @@ public class PokemonApiService {
 
     public static final String BASE_URL = "https://pokeapi.co/api/v2";
     private final RestTemplate restTemplate;
-    private final List<String> pokemonNames;
     private final ObjectMapper objectMapper;
+    private final PokemonSpeciesRepository pokemonSpeciesRepository;
 
 
-    public PokemonApiService(RestTemplate restTemplate) throws JsonProcessingException {
+    public PokemonApiService(RestTemplate restTemplate, PokemonSpeciesRepository pokemonSpeciesRepository) throws JsonProcessingException {
         this.restTemplate = restTemplate;
+        this.pokemonSpeciesRepository = pokemonSpeciesRepository;
         this.objectMapper = new ObjectMapper();
-        this.pokemonNames = getAllPokemonNames();
+        //saveAllPokemonSpecies();
+
     }
 
     public List<PokemonDTO> getSearchedPokemons(String search) throws JsonProcessingException {
         List<PokemonDTO> pokemonDTOS = new ArrayList<>();
-        List<String> names = pokemonNames.stream()
-                .filter(pokemonName -> pokemonName.startsWith(search))
-                .toList();
-
-        for (String name : names) {
-            pokemonDTOS.add(getPokemon(name));
+        List<PokemonSpecies> speciesStartingWith = pokemonSpeciesRepository.findBySpeciesStartingWith(search);
+        for (PokemonSpecies species : speciesStartingWith) {
+            PokemonDTO pokemonDTO = getPokemon(species.getSpecies());
+            pokemonDTOS.add(pokemonDTO);
         }
         return pokemonDTOS;
     }
 
-    private List<String> getAllPokemonNames() throws JsonProcessingException {
-        List<String> pokemonNames = new ArrayList<>();
+    private void saveAllPokemonSpecies() throws JsonProcessingException {
+        List<PokemonSpecies> allSpecies = new ArrayList<>();
         String url = String.format("%s/pokemon?limit=1025", BASE_URL);
         JsonNode pokemonObj = getJsonNode(url);
-
         for (JsonNode nameNode : pokemonObj.get("results")) {
-            pokemonNames.add(nameNode.get("name").asText());
+            allSpecies.add(getSpeciesEntity(nameNode));
         }
-        return pokemonNames;
+        pokemonSpeciesRepository.saveAll(allSpecies);
+    }
+
+    private PokemonSpecies getSpeciesEntity(JsonNode nameNode) {
+        PokemonSpecies pokemonSpecies = new PokemonSpecies();
+        pokemonSpecies.setSpecies(nameNode.get("name").asText());
+        return pokemonSpecies;
     }
 
     private PokemonDTO getPokemon(String name) throws JsonProcessingException {
