@@ -3,7 +3,6 @@ package com.codecool.my_pokemon_team.controller;
 import com.codecool.my_pokemon_team.controller.dto.PokemonDTO;
 import com.codecool.my_pokemon_team.controller.dto.TrainerDTO;
 import com.codecool.my_pokemon_team.model.pokemon.Pokemon;
-import com.codecool.my_pokemon_team.model.trainer.Trainer;
 import com.codecool.my_pokemon_team.service.TrainerService;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,9 +34,12 @@ public class TrainerController {
     }
 
     @PatchMapping("{id}")
-    public void updatePassword(@PathVariable long id, @RequestBody TrainerDTO trainerDTO){
-        System.out.println(id);
-        System.out.println(trainerDTO.password());
+    public void updatePassword(@PathVariable long id, @RequestBody TrainerDTO trainerDTO) {
         trainerService.updatePassword(id, trainerDTO.password());
+    }
+
+    @DeleteMapping("{id}")
+    public void deleteTrainer(@PathVariable long id) {
+        trainerService.deleteTrainer(id);
     }
 }

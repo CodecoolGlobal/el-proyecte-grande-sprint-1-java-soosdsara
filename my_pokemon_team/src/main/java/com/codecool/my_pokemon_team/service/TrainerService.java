@@ -84,8 +84,13 @@ public class TrainerService {
         }
         return types;
     }
+
     @Transactional
-    public void updatePassword(long id, String password){
+    public void updatePassword(long id, String password) {
         trainerRepository.setTrainerEntityPasswordById(id, password);
+    }
+
+    public void deleteTrainer(long id) {
+        trainerRepository.deleteById(id);
     }
 }
