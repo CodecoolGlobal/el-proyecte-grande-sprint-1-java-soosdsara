@@ -25,7 +25,6 @@ public class Trainer {
 
     public void addPokemon(Pokemon pokemon) {
         pokemonTeam.add(pokemon);
-        System.out.println(pokemonTeam);
     }
 
     public String getName() {
