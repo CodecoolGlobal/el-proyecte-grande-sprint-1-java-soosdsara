@@ -1,71 +1,44 @@
 package com.codecool.my_pokemon_team.service;
 
-import com.codecool.my_pokemon_team.controller.dto.PokemonDTO;
-import com.codecool.my_pokemon_team.model.pokemon.Pokemon;
-import com.codecool.my_pokemon_team.model.pokemon.PokemonType;
+import com.codecool.my_pokemon_team.controller.dto.TrainerDTO;
 import com.codecool.my_pokemon_team.model.trainer.Trainer;
+import com.codecool.my_pokemon_team.repository.TrainerRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.*;
-import java.util.stream.Collectors;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
 public class TrainerService {
+    private final TrainerRepository trainerRepository;
 
-    private final Set<Trainer> trainers;
-
-    public TrainerService() {
-        this.trainers = new HashSet<>();
-
-        TrainerInitializer trainerInitializer = new TrainerInitializer();
-        trainers.add(trainerInitializer.initializeTrainers());
+    public TrainerService(TrainerRepository trainerRepository) {
+        this.trainerRepository = trainerRepository;
     }
 
-    public Trainer addTrainer(String name, String password) {
-        Trainer trainer = new Trainer(name, password);
-        this.trainers.add(trainer);
-        return trainer;
+    public Trainer findTrainerById(long trainerId) {
+        return trainerRepository.findById(trainerId).get();
     }
 
-    public Pokemon addPokemon(int trainerId, PokemonDTO pokemonDTO) {
-        Trainer trainer = findTrainerById(trainerId);
-        Pokemon pokemon = createPokemonFromDTO(pokemonDTO);
-        trainer.addPokemon(pokemon);
-        return pokemon;
+    public TrainerDTO addTrainer(String name, String password) {
+        TrainerDTO trainerDTO = new TrainerDTO(name, password);
+        trainerRepository.save(createTrainerEntity(name, password));
+        return trainerDTO;
     }
 
-    public Set<Pokemon> getPokemonsOfTrainer(int trainerId) {
-        return trainers.stream().filter(trainer ->trainer.checkTrainerId(trainerId))
-                .flatMap(trainer -> trainer.getPokemonTeam().stream()).collect(Collectors.toSet());
+    private Trainer createTrainerEntity(String name, String password) {
+        Trainer trainerEntity = new Trainer();
+        trainerEntity.setTrainerName(name);
+        trainerEntity.setPassword(password);
+
+        return trainerEntity;
     }
 
-    private Trainer findTrainerById(int trainerId) {
-        return trainers.stream()
-                .filter(t -> t.checkTrainerId(trainerId))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Trainer not found with ID: " + trainerId));
+    @Transactional
+    public void updatePassword(long id, String password) {
+        trainerRepository.setTrainerEntityPasswordById(id, password);
     }
 
-    private Pokemon createPokemonFromDTO(PokemonDTO pokemonDTO) {
-        List<PokemonType> types = getPokemonTypes(pokemonDTO.types());
-        return new Pokemon(
-                pokemonDTO.species(),
-                types,
-                pokemonDTO.pic(),
-                pokemonDTO.hp(),
-                pokemonDTO.attack(),
-                pokemonDTO.defense()
-        );
+    public void deleteTrainer(long id) {
+        trainerRepository.deleteById(id);
     }
-
-    private List<PokemonType> getPokemonTypes(List<String> typesStrings) {
-        List<PokemonType> types = new ArrayList<>();
-        for (String type : typesStrings) {
-            types.add(PokemonType.valueOf(type.toUpperCase()));
-        }
-        return types;
-    }
-
-
 }

@@ -27,7 +27,7 @@ public class PokemonApiService {
         this.restTemplate = restTemplate;
         this.pokemonSpeciesRepository = pokemonSpeciesRepository;
         this.objectMapper = new ObjectMapper();
-        //saveAllPokemonSpecies();
+        saveAllPokemonSpecies();
 
     }
 
@@ -71,7 +71,7 @@ public class PokemonApiService {
         int defense = getPokemonStat(pokemonObj, 2);
         List<String> types = getPokemonTypes(pokemonObj);
 
-        return new PokemonDTO(species, types, pic, hp, attack, defense);
+        return new PokemonDTO(null, species, types, pic, hp, attack, defense);
     }
 
     private JsonNode getJsonNode(String url) throws JsonProcessingException {

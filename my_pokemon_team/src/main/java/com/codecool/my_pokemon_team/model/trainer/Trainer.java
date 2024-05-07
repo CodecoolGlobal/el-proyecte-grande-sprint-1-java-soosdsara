@@ -1,38 +1,44 @@
 package com.codecool.my_pokemon_team.model.trainer;
 
 import com.codecool.my_pokemon_team.model.pokemon.Pokemon;
+import jakarta.persistence.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
 public class Trainer {
-    private static int ID = 0;
-    private final int trainerId;
-    private final String name;
+    @Id
+    @GeneratedValue
+    private Long id;
+    @Column(unique = true)
+    private String trainerName;
     private String password;
-    private final Set<Pokemon> pokemonTeam;
+    @OneToMany(mappedBy = "trainer", cascade = CascadeType.ALL)
+    private Set<Pokemon> pokemonEntities = new HashSet<>();
 
-    public Trainer(String name, String password) {
-        this.trainerId = ID++;
-        this.name = name;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+
+    public String getTrainerName() {
+        return trainerName;
+    }
+
+    public void setTrainerName(String trainerName) {
+        this.trainerName = trainerName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
         this.password = password;
-        this.pokemonTeam = new HashSet<>();
     }
-
-    public boolean checkTrainerId(int trainerId) {
-        return this.trainerId == trainerId;
-    }
-
-    public void addPokemon(Pokemon pokemon) {
-        pokemonTeam.add(pokemon);
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Set<Pokemon> getPokemonTeam() {
-        return new HashSet<>(pokemonTeam);
-    }
-
 }

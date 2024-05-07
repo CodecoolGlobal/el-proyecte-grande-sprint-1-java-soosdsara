@@ -22,7 +22,7 @@ function Search() {
   };
 
   const addPokemon = async (pokemon) => {
-      const response = await fetch(`/api/trainer/${id}`, {
+      const response = await fetch(`/api/pokemons/${id}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(pokemon),

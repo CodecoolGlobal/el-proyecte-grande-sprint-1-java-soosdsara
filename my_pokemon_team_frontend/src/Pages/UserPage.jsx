@@ -9,7 +9,7 @@ const UserPage = () => {
   useEffect(() =>{
    
     async function fetchPokemons(){
-      const response = await fetch (`/api/trainer/${trainerId}/pokemons`);
+      const response = await fetch (`/api/pokemons/${trainerId}`);
       const pokemons = await response.json();
       console.log(pokemons);
       setPokemons(pokemons);
