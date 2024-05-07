@@ -11,19 +11,14 @@ public class TrainerEntity {
     @GeneratedValue
     private Long id;
     @Column(unique = true)
-    private final UUID uuid;
-    @Column(unique = true)
     private String trainerName;
-    @Column(unique = true)
+
     private String password;
 
 /*    @OneToMany(mappedBy = "trainer", cascade = CascadeType.ALL)
     private Set<PokemonEntity> pokemonEntities;*/
 
 
-    public TrainerEntity() {
-        this.uuid = UUID.randomUUID();
-    }
 
 
     public void setId(Long id) {
@@ -34,9 +29,6 @@ public class TrainerEntity {
         return id;
     }
 
-    public UUID getUuid() {
-        return uuid;
-    }
 
     public String getTrainerName() {
         return trainerName;
