@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class PokemonApiService {
@@ -33,6 +34,9 @@ public class PokemonApiService {
     public List<PokemonDTO> getSearchedPokemons(String search) throws JsonProcessingException {
         List<PokemonDTO> pokemonDTOS = new ArrayList<>();
         List<PokemonSpecies> speciesStartingWith = pokemonSpeciesRepository.findBySpeciesStartingWith(search);
+        if(speciesStartingWith.isEmpty()) {
+            throw new NoSuchElementException("Search element is not found");
+        }
         for (PokemonSpecies species : speciesStartingWith) {
             PokemonDTO pokemonDTO = getPokemon(species.getSpecies());
             pokemonDTOS.add(pokemonDTO);
