@@ -1,8 +1,9 @@
 package com.codecool.my_pokemon_team.model.trainer;
 
-import jakarta.persistence.*;
-
-import java.util.UUID;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 
 @Entity
 //@Table(uniqueConstraints = @UniqueConstraint(columnNames = {}))
@@ -12,13 +13,10 @@ public class TrainerEntity {
     private Long id;
     @Column(unique = true)
     private String trainerName;
-
     private String password;
 
 /*    @OneToMany(mappedBy = "trainer", cascade = CascadeType.ALL)
     private Set<PokemonEntity> pokemonEntities;*/
-
-
 
 
     public void setId(Long id) {

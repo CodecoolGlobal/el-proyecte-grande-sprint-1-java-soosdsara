@@ -8,6 +8,7 @@ import com.codecool.my_pokemon_team.model.trainer.Trainer;
 import com.codecool.my_pokemon_team.model.trainer.TrainerEntity;
 import com.codecool.my_pokemon_team.repository.TrainerRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -82,5 +83,9 @@ public class TrainerService {
             types.add(PokemonType.valueOf(type.toUpperCase()));
         }
         return types;
+    }
+    @Transactional
+    public void updatePassword(long id, String password){
+        trainerRepository.setTrainerEntityPasswordById(id, password);
     }
 }

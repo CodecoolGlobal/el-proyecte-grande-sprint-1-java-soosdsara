@@ -34,4 +34,10 @@ public class TrainerController {
         return trainerService.getPokemonsOfTrainer(id);
     }
 
+    @PatchMapping("{id}")
+    public void updatePassword(@PathVariable long id, @RequestBody TrainerDTO trainerDTO){
+        System.out.println(id);
+        System.out.println(trainerDTO.password());
+        trainerService.updatePassword(id, trainerDTO.password());
+    }
 }
