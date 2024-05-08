@@ -13,7 +13,8 @@ public class Pokemon {
     private int privateId;
     @Column(unique = true)
     private UUID publicId = UUID.randomUUID();
-    private String species;
+    @ManyToOne
+    private PokemonSpecies species;
     private String nickName;
     @ManyToOne
     private Trainer trainer;
@@ -34,7 +35,7 @@ public class Pokemon {
         return privateId;
     }
 
-    public String getSpecies() {
+    public PokemonSpecies getSpecies() {
         return species;
     }
 
@@ -66,7 +67,7 @@ public class Pokemon {
         return defense;
     }
 
-    public void setSpecies(String species) {
+    public void setSpecies(PokemonSpecies species) {
         this.species = species;
     }
 

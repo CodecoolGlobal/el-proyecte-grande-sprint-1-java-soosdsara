@@ -2,8 +2,10 @@ package com.codecool.my_pokemon_team.service;
 
 import com.codecool.my_pokemon_team.controller.dto.PokemonDTO;
 import com.codecool.my_pokemon_team.model.pokemon.Pokemon;
+import com.codecool.my_pokemon_team.model.pokemon.PokemonSpecies;
 import com.codecool.my_pokemon_team.model.pokemon.PokemonType;
 import com.codecool.my_pokemon_team.repository.PokemonRepository;
+import com.codecool.my_pokemon_team.repository.PokemonSpeciesRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,15 +15,18 @@ import java.util.List;
 public class PokemonService {
     private final PokemonRepository pokemonRepository;
     private final TrainerService trainerService;
+    private final PokemonSpeciesRepository pokemonSpeciesRepository;
 
-    public PokemonService(PokemonRepository pokemonRepository, TrainerService trainerService) {
+    public PokemonService(PokemonRepository pokemonRepository, TrainerService trainerService, PokemonSpeciesRepository pokemonSpeciesRepository) {
         this.pokemonRepository = pokemonRepository;
         this.trainerService = trainerService;
+        this.pokemonSpeciesRepository = pokemonSpeciesRepository;
     }
 
     public void addPokemon(int trainerId, PokemonDTO pokemonDTO) {
         Pokemon pokemonEntity = new Pokemon();
-        pokemonEntity.setSpecies(pokemonDTO.species());
+        PokemonSpecies species = pokemonSpeciesRepository.findBySpecies(pokemonDTO.species()).get(0);
+        pokemonEntity.setSpecies(species);
         pokemonEntity.setTrainer(trainerService.findTrainerById(trainerId));
         pokemonEntity.setTypes(getPokemonTypes(pokemonDTO.types()));
         pokemonEntity.setPic(pokemonDTO.pic());
@@ -50,7 +55,7 @@ public class PokemonService {
     private PokemonDTO convertEntityToDTO(Pokemon pokemonEntity) {
         return new PokemonDTO(
                 pokemonEntity.getPublicId(),
-                pokemonEntity.getSpecies(),
+                pokemonEntity.getSpecies().getSpecies(),
                 convertTypeToString(pokemonEntity.getTypes()),
                 pokemonEntity.getPic(),
                 pokemonEntity.getHp(),

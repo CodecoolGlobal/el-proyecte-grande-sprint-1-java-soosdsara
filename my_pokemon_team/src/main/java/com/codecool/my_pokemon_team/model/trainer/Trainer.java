@@ -25,7 +25,6 @@ public class Trainer {
         return id;
     }
 
-
     public String getTrainerName() {
         return trainerName;
     }
@@ -40,5 +39,9 @@ public class Trainer {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<Pokemon> getPokemonEntities() {
+        return pokemonEntities;
     }
 }

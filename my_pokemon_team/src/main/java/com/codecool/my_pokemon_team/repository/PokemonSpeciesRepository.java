@@ -10,5 +10,6 @@ import java.util.List;
 public interface PokemonSpeciesRepository extends JpaRepository<PokemonSpecies, Long> {
 
     List<PokemonSpecies> findBySpeciesStartingWith(String search);
+    List<PokemonSpecies> findBySpecies(String search);
 
 }
