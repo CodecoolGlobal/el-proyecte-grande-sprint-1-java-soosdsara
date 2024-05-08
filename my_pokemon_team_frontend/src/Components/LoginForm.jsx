@@ -6,6 +6,7 @@ function LoginForm() {
 
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [showMessage, setShowMessage] = useState(false);
 
   function handleNameChange(e) {
     setName(e.target.value);
@@ -18,10 +19,12 @@ function LoginForm() {
   async function handleLogin() {
     const response = await fetch(`/api/trainer/${name}`);
     if (!response.ok) {
+      setShowMessage(true);
       throw new Error("No trainer with this username:" + name);
+    } else {
+        localStorage.setItem("trainerName", JSON.stringify(name));
+        navigate(`/userpage`);
     }
-    //Mentés
-    navigate(`/userpage`);
   }
 
   return (
@@ -29,6 +32,11 @@ function LoginForm() {
       <h1>Welcome Trainer in My Pokemon Team!</h1>
       <form>
         <div>
+          {showMessage ? (
+            <p style={{ color: "red" }}>
+              Incorrect password or user!
+            </p>
+          ) : null}
           <label htmlFor="loginName">
             {" "}
             Trainer name:

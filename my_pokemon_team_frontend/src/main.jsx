@@ -17,14 +17,14 @@ const router = createBrowserRouter([
     element: <Registration />,
   },
   {
-    path: "/",
+    path: "/userpage",
     element: <Layout />,
     children: [
-      { path: "/userpage/:id", 
+      { path: "/userpage", 
         element: <UserPage /> 
       },
       {
-        path: "/userpage/:id/search",
+        path: "/userpage/search",
         element: <Search />,
       },
     ],
