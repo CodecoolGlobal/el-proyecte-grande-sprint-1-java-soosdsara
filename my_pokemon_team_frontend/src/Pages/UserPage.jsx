@@ -19,7 +19,7 @@ const UserPage = () => {
 
   return (
     <>
-      {pokemons?.map((pokemon) => <div key={pokemon.species}><Pokemon pokemon={pokemon}></Pokemon></div>)}
+      {pokemons  && pokemons?.map((pokemon) => <div key={pokemon.species}><Pokemon pokemon={pokemon}></Pokemon></div>)}
     </>
   )
 }
