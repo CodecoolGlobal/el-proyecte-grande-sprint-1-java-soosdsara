@@ -25,7 +25,8 @@ const UserPage = () => {
 
   return (
     <>
-      {pokemons.length == 0 ? <label>You have currently no pokemons.</label>:
+      {pokemons.length == 0 ? <div><label>You have currently no pokemons.</label><button 
+      type="button" onClick={() => navigate(`/userpage/${trainerId}/search`)}>Search Pokemons</button></div>:
        pokemons?.map((pokemon) => <div key={pokemon.species}><Pokemon pokemon={pokemon}></Pokemon></div>)}
     </>
   )
