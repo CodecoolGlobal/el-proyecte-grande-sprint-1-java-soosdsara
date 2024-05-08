@@ -30,7 +30,7 @@ public class PokemonController {
         return "Pokemon added";
     }
 
-    @GetMapping({"/{id}"})
+    @GetMapping("/{id}")
     public List<PokemonDTO> getPokemonOfTrainer(@PathVariable int id) {
         return pokemonService.getPokemonOfTrainer(id);
     }
