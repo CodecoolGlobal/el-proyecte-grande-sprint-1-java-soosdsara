@@ -1,13 +1,13 @@
 package com.codecool.my_pokemon_team.model.trainer;
 
-import com.codecool.my_pokemon_team.model.pokemon.PokemonEntity;
+import com.codecool.my_pokemon_team.model.pokemon.Pokemon;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class TrainerEntity {
+public class Trainer {
     @Id
     @GeneratedValue
     private Long id;
@@ -15,7 +15,7 @@ public class TrainerEntity {
     private String trainerName;
     private String password;
     @OneToMany(mappedBy = "trainer", cascade = CascadeType.ALL)
-    private Set<PokemonEntity> pokemonEntities = new HashSet<>();
+    private Set<Pokemon> pokemonEntities = new HashSet<>();
 
     public void setId(Long id) {
         this.id = id;
@@ -24,7 +24,6 @@ public class TrainerEntity {
     public Long getId() {
         return id;
     }
-
 
     public String getTrainerName() {
         return trainerName;
@@ -40,5 +39,9 @@ public class TrainerEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<Pokemon> getPokemonEntities() {
+        return pokemonEntities;
     }
 }

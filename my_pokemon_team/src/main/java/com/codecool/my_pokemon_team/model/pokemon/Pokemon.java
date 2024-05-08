@@ -1,22 +1,23 @@
 package com.codecool.my_pokemon_team.model.pokemon;
 
-import com.codecool.my_pokemon_team.model.trainer.TrainerEntity;
+import com.codecool.my_pokemon_team.model.trainer.Trainer;
 import jakarta.persistence.*;
 
 import java.util.List;
 import java.util.UUID;
 
 @Entity
-public class PokemonEntity {
+public class Pokemon {
     @GeneratedValue
     @Id
     private int privateId;
     @Column(unique = true)
     private UUID publicId = UUID.randomUUID();
-    private String species;
+    @ManyToOne
+    private PokemonSpecies species;
     private String nickName;
     @ManyToOne
-    private TrainerEntity trainer;
+    private Trainer trainer;
     @ElementCollection(targetClass = PokemonType.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "pokemon_types", joinColumns = @JoinColumn(name = "pokemonId"))
     @Column(name = "pokemon_type", nullable = false)
@@ -34,11 +35,11 @@ public class PokemonEntity {
         return privateId;
     }
 
-    public String getSpecies() {
+    public PokemonSpecies getSpecies() {
         return species;
     }
 
-    public TrainerEntity getTrainer() {
+    public Trainer getTrainer() {
         return trainer;
     }
 
@@ -66,7 +67,7 @@ public class PokemonEntity {
         return defense;
     }
 
-    public void setSpecies(String species) {
+    public void setSpecies(PokemonSpecies species) {
         this.species = species;
     }
 
@@ -74,7 +75,7 @@ public class PokemonEntity {
         this.nickName = nickName;
     }
 
-    public void setTrainer(TrainerEntity trainer) {
+    public void setTrainer(Trainer trainer) {
         this.trainer = trainer;
     }
 

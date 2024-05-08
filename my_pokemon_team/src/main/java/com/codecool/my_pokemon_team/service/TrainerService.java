@@ -1,7 +1,7 @@
 package com.codecool.my_pokemon_team.service;
 
 import com.codecool.my_pokemon_team.controller.dto.TrainerDTO;
-import com.codecool.my_pokemon_team.model.trainer.TrainerEntity;
+import com.codecool.my_pokemon_team.model.trainer.Trainer;
 import com.codecool.my_pokemon_team.repository.TrainerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +15,7 @@ public class TrainerService {
         this.trainerRepository = trainerRepository;
     }
 
-    public TrainerEntity findTrainerById(long trainerId) {
+    public Trainer findTrainerById(long trainerId) {
         return trainerRepository.findById(trainerId).get();
     }
 
@@ -25,8 +25,8 @@ public class TrainerService {
         return trainerDTO;
     }
 
-    private TrainerEntity createTrainerEntity(String name, String password) {
-        TrainerEntity trainerEntity = new TrainerEntity();
+    private Trainer createTrainerEntity(String name, String password) {
+        Trainer trainerEntity = new Trainer();
         trainerEntity.setTrainerName(name);
         trainerEntity.setPassword(password);
 
