@@ -6,18 +6,28 @@ function RegistrationForm() {
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const [showMessage, setShowMessage] = useState(false);
 
     async function postTrainer(e) {
         e.preventDefault();
+        try{
+            const response = await fetch('/api/trainer', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ name, password }),
+            });
 
-        await fetch('/api/trainer', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ name, password }),
-        });
-        navigate("/");
+            if (!response.ok) {
+                setShowMessage(true);
+                throw new Error('Server error: ' + response.status);
+            }
+
+            navigate("/");
+        } catch (error){
+            console.error( error.message + " - Please choose another trainer name.")
+        }
     }
 
     function handleNameChange(e) {
@@ -37,6 +47,7 @@ function RegistrationForm() {
             <h1>Start your POKEMON journey HERE!</h1>
             <form onSubmit={postTrainer}>
                 <div>
+                    {showMessage ? <p style={{ color: 'red' }}>Unfortunately, this trainer name is already taken. Please choose another one!</p> : null}
                     <label htmlFor="RegisterName"> Trainer name:
                         <input type="text"
                             name="RegisterName"
