@@ -17,8 +17,8 @@ public class TrainerService {
         this.trainerRepository = trainerRepository;
     }
 
-    public Trainer findTrainerById(long trainerId) {
-        return trainerRepository.findById(trainerId).get();
+    public Trainer findTrainerByName(String trainerName) {
+        return trainerRepository.findByTrainerName(trainerName).get();
     }
 
     public TrainerDTO addTrainer(String name, String password) {

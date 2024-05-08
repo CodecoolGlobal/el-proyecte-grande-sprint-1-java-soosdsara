@@ -20,12 +20,12 @@ public class TrainerController {
         return trainerService.addTrainer(trainerDTO.name(), trainerDTO.password());
     }
 
-    @PatchMapping("{id}")
+    @PatchMapping("{id}")//Public id
     public void updatePassword(@PathVariable long id, @RequestBody TrainerDTO trainerDTO) {
         trainerService.updatePassword(id, trainerDTO.password());
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("{id}")//Public id
     public void deleteTrainer(@PathVariable long id) {
         trainerService.deleteTrainer(id);
     }
