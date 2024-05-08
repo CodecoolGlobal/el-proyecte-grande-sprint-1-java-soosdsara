@@ -30,7 +30,7 @@ function Search() {
       if (!response.ok) {
         throw new Error("Failed to add pokemon");
       }
-      return await response.json();
+      return await response.json
   };
 
   return (
