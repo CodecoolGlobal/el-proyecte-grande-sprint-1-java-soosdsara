@@ -32,11 +32,11 @@ public class TrainerService {
     }
 
     @Transactional
-    public void updatePassword(long id, String password) {
-        trainerRepository.setTrainerEntityPasswordById(id, password);
+    public void updatePassword(String trainerName, String password) {
+        trainerRepository.setTrainerEntityPasswordByTrainerName(trainerName, password);
     }
 
-    public void deleteTrainer(long id) {
-        trainerRepository.deleteById(id);
+    public void deleteTrainer(String trainerName) {
+        trainerRepository.deleteByTrainerName(trainerName);
     }
 }

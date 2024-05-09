@@ -11,7 +11,7 @@ public interface TrainerRepository extends JpaRepository<Trainer, Long> {
 
     @Modifying
     @Query("update Trainer trainer set trainer.password = ?2 where trainer.id = ?1")
-    void setTrainerEntityPasswordById(long id, String password);
+    void setTrainerEntityPasswordByTrainerName(String trainerName, String password);
 
-    void deleteById(long id);
+    void deleteByTrainerName(String trainerName);
 }
