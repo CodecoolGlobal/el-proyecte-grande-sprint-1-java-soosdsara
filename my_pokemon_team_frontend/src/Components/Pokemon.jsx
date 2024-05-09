@@ -1,4 +1,4 @@
-const Pokemon = ({ pokemon }) => {
+const Pokemon = ( {pokemon} ) => {
   return (
     <div>
       <label>Species: {pokemon.species}</label>
