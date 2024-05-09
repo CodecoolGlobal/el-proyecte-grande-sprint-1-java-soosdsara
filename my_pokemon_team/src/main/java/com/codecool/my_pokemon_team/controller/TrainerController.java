@@ -16,18 +16,18 @@ public class TrainerController {
     }
 
     @PostMapping
-    public TrainerDTO registerTrainer(@RequestBody TrainerDTO trainerDTO) {
-        return trainerService.addTrainer(trainerDTO.name(), trainerDTO.password());
+    public void registerTrainer(@RequestBody TrainerDTO trainerDTO) {
+        trainerService.addTrainer(trainerDTO);
     }
 
-    @PatchMapping("{id}")//Public id
-    public void updatePassword(@PathVariable long id, @RequestBody TrainerDTO trainerDTO) {
-        trainerService.updatePassword(id, trainerDTO.password());
+    @PatchMapping("{trainerName}")
+    public void updatePassword(@PathVariable String trainerName, @RequestBody TrainerDTO trainerDTO) {
+        trainerService.updatePassword(trainerName, trainerDTO.password());
     }
 
-    @DeleteMapping("{id}")//Public id
-    public void deleteTrainer(@PathVariable long id) {
-        trainerService.deleteTrainer(id);
+    @DeleteMapping("{trainerName}")
+    public void deleteTrainer(@PathVariable String trainerName) {
+        trainerService.deleteTrainer(trainerName);
     }
     @GetMapping("/{trainerName}")
     public ResponseEntity<?> getTrainerName(@PathVariable String trainerName) {
