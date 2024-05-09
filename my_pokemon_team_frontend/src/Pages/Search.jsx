@@ -10,6 +10,7 @@ function Search() {
   const fetchPokemons = async (search) => {
       const response = await fetch(`/api/pokemons?search=${search}`);
       if (!response.ok) {
+        setPokemons([])
         throw new Error("No such pokemon found.");
       }
       const data = await response.json();

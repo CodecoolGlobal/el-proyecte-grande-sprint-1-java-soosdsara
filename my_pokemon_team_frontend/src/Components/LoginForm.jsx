@@ -28,7 +28,7 @@ function LoginForm() {
   }
 
   return (
-    <div>
+    <div className="login">
       <h1>Welcome Trainer in My Pokemon Team!</h1>
       <form>
         <div>

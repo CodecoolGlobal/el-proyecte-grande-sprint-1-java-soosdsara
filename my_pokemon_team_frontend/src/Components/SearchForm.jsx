@@ -9,10 +9,11 @@ function SearchForm({ onSubmit }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="search_form">
       <input
         name="pokemon"
         value={search}
+        placeholder={"...type a pokemon"}
         onChange={(e) => setSearch(e.target.value)}
       />
       <button type="submit">Search</button>
