@@ -16,7 +16,7 @@ public interface TrainerRepository extends JpaRepository<Trainer, Long> {
     void setTrainerEntityPasswordByTrainerName(String trainerName, String password);
 
     void deleteByTrainerName(String trainerName);
+
     Optional<Trainer> findByTrainerName(String name);
 
-    void deleteById(long id);
 }
