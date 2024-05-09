@@ -19,16 +19,14 @@ public class TrainerService {
         return trainerRepository.findById(trainerId).get();
     }
 
-    public TrainerDTO addTrainer(String name, String password) {
-        TrainerDTO trainerDTO = new TrainerDTO(name, password);
-        trainerRepository.save(createTrainerEntity(name, password));
-        return trainerDTO;
+    public void addTrainer(TrainerDTO trainerDTO) {
+        trainerRepository.save(createTrainerEntity(trainerDTO));
     }
 
-    private Trainer createTrainerEntity(String name, String password) {
+    private Trainer createTrainerEntity(TrainerDTO trainerDTO) {
         Trainer trainerEntity = new Trainer();
-        trainerEntity.setTrainerName(name);
-        trainerEntity.setPassword(password);
+        trainerEntity.setTrainerName(trainerDTO.name());
+        trainerEntity.setPassword(trainerDTO.password());
 
         return trainerEntity;
     }

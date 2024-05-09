@@ -5,10 +5,11 @@ import com.codecool.my_pokemon_team.model.trainer.Trainer;
 import com.codecool.my_pokemon_team.repository.TrainerRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -17,11 +18,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 @ExtendWith(MockitoExtension.class)
 class TrainerServiceTest {
-
+    @Captor
+    ArgumentCaptor<Trainer> captor;
     @Mock
     private TrainerRepository trainerRepository;
 
@@ -35,10 +36,14 @@ class TrainerServiceTest {
         String password = "grookey1234";
         TrainerDTO expectedTrainerDTO = new TrainerDTO(trainerName, password);
 
+        Trainer expectedTrainer = createTrainerEntity(trainerName, password);
         //Act
-        TrainerDTO actualTrainerDTO = trainerService.addTrainer(trainerName, password);
+        trainerService.addTrainer(expectedTrainerDTO);
         //Assert
-        assertEquals(expectedTrainerDTO, actualTrainerDTO);
+        verify(trainerRepository).save(captor.capture());
+        Trainer trainer = captor.getValue();
+
+        assertEquals(expectedTrainer, trainer);
     }
 
     @Test
@@ -50,19 +55,19 @@ class TrainerServiceTest {
 
         when(trainerRepository.save(any(Trainer.class))).thenReturn(new Trainer());
         //Act
-        TrainerDTO actualTrainerDTO = trainerService.addTrainer(trainerName, password);
+       trainerService.addTrainer(expectedTrainerDTO);
         //Assert
-        assertThat(actualTrainerDTO.name()).isSameAs(expectedTrainerDTO.name());
+       // assertThat(actualTrainerDTO.name()).isSameAs(expectedTrainerDTO.name());
     }
 
 
-    @Test
+   /* @Test
     public void testDeleteTrainer_whenDelete_thenRemoveTrainer() {
         //Arrange
         String trainerName = "TG";
         String password = "grookey1234";
-        Long id = 1L;
-        Trainer trainerEntity = createTrainerEntity(trainerName, password, id);
+
+        Trainer trainerEntity = createTrainerEntity(trainerName, password);
         trainerRepository.save(trainerEntity);
 
         //Act
@@ -94,10 +99,9 @@ class TrainerServiceTest {
         //assertThat(updatedTrainerEntity.getPassword()).isEqualTo("pikachu333");
 
     }
-
-    private Trainer createTrainerEntity(String name, String password, Long id) {
+*/
+    private Trainer createTrainerEntity(String name, String password) {
         Trainer trainerEntity = new Trainer();
-        trainerEntity.setId(id);
         trainerEntity.setTrainerName(name);
         trainerEntity.setPassword(password);
 

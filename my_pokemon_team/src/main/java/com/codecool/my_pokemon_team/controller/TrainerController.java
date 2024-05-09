@@ -15,8 +15,8 @@ public class TrainerController {
     }
 
     @PostMapping
-    public TrainerDTO registerTrainer(@RequestBody TrainerDTO trainerDTO) {
-        return trainerService.addTrainer(trainerDTO.name(), trainerDTO.password());
+    public void registerTrainer(@RequestBody TrainerDTO trainerDTO) {
+        trainerService.addTrainer(trainerDTO);
     }
 
     @PatchMapping("{id}")
