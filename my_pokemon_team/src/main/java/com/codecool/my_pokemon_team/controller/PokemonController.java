@@ -25,15 +25,15 @@ public class PokemonController {
         return pokemonApiService.getSearchedPokemons(search);
     }
 
-    @PostMapping("/{id}")
-    public String addPokemon(@PathVariable int id, @RequestBody PokemonDTO pokemonDTO) {
-        pokemonService.addPokemon(id, pokemonDTO);
+    @PostMapping("/{trainerName}")
+    public String addPokemon(@PathVariable String trainerName, @RequestBody PokemonDTO pokemonDTO) {
+        pokemonService.addPokemon(trainerName, pokemonDTO);
         return "Pokemon added";
     }
 
-    @GetMapping("/{id}")
-    public List<PokemonDTO> getPokemonOfTrainer(@PathVariable int id) {
-        return pokemonService.getPokemonOfTrainer(id);
+    @GetMapping("/{trainerName}")
+    public List<PokemonDTO> getPokemonOfTrainer(@PathVariable String trainerName) {
+        return pokemonService.getPokemonOfTrainer(trainerName);
     }
 
     @PatchMapping("/{id}")

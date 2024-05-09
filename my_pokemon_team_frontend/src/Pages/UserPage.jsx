@@ -4,21 +4,22 @@ import Pokemon from '../Components/Pokemon';
 import { useNavigate } from 'react-router';
 
 const UserPage = () => {
-  const trainerId = useLocation().pathname.split("/userpage/")[1];
+  const trainerName = JSON.parse(localStorage.getItem("trainerName"));
   const [pokemons, setPokemons] = useState([]);
   const navigate = useNavigate();
 
-  async function fetchPokemons(){
-    const response = await fetch (`/api/pokemons/${trainerId}`);
-    console.log(response.status)
-    if(response.status != 200){
-      navigate("/");
-    }
-    const pokemons = await response.json();
-    console.log(pokemons);
-    setPokemons(pokemons);
-  }
   useEffect(() =>{
+   
+    async function fetchPokemons(){
+      const response = await fetch (`/api/pokemons/${trainerName}`);
+      console.log(response.status)
+      if(response.status != 200){
+        navigate("/");
+      }
+      const pokemons = await response.json();
+      console.log(pokemons);
+      setPokemons(pokemons);
+    }
     fetchPokemons();
   },[])
 
@@ -51,7 +52,7 @@ const UserPage = () => {
     <>
       {pokemons.length == 0 ? <div>
       <label>You have currently no pokemons.</label>
-      <button type="button" onClick={() => navigate(`/userpage/${trainerId}/search`)}>Search Pokemons</button>
+      <button type="button" onClick={() => navigate(`/userpage/${trainerName}/search`)}>Search Pokemons</button>
       </div> :
        pokemons?.map((pokemon) => <div key={pokemon.publicId}><Pokemon pokemon={pokemon}></Pokemon><input 
        id={pokemon.publicId} placeholder={"nickname"} onKeyDown={(e) => {

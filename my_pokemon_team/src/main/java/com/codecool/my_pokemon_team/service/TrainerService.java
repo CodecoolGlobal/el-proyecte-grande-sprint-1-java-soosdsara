@@ -6,6 +6,8 @@ import com.codecool.my_pokemon_team.repository.TrainerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 
 @Service
 public class TrainerService {
@@ -15,30 +17,34 @@ public class TrainerService {
         this.trainerRepository = trainerRepository;
     }
 
-    public Trainer findTrainerById(long trainerId) {
-        return trainerRepository.findById(trainerId).get();
+    public Trainer findTrainerByName(String trainerName) {
+        return trainerRepository.findByTrainerName(trainerName).get();
     }
 
-    public TrainerDTO addTrainer(String name, String password) {
-        TrainerDTO trainerDTO = new TrainerDTO(name, password);
-        trainerRepository.save(createTrainerEntity(name, password));
-        return trainerDTO;
+    public void addTrainer(TrainerDTO trainerDTO) {
+        trainerRepository.save(createTrainerEntity(trainerDTO));
     }
 
-    private Trainer createTrainerEntity(String name, String password) {
+    private Trainer createTrainerEntity(TrainerDTO trainerDTO) {
         Trainer trainerEntity = new Trainer();
-        trainerEntity.setTrainerName(name);
-        trainerEntity.setPassword(password);
+        trainerEntity.setTrainerName(trainerDTO.name());
+        trainerEntity.setPassword(trainerDTO.password());
 
         return trainerEntity;
     }
 
     @Transactional
-    public void updatePassword(long id, String password) {
-        trainerRepository.setTrainerEntityPasswordById(id, password);
+    public void updatePassword(String trainerName, String password) {
+        trainerRepository.setTrainerEntityPasswordByTrainerName(trainerName, password);
     }
 
-    public void deleteTrainer(long id) {
-        trainerRepository.deleteById(id);
+    @Transactional
+    public void deleteTrainer(String trainerName) {
+        trainerRepository.deleteByTrainerName(trainerName);
+    }
+
+    public boolean checkTrainerName(String name) {
+        Optional<Trainer> trainer = trainerRepository.findByTrainerName(name);
+        return trainer.isPresent();
     }
 }
