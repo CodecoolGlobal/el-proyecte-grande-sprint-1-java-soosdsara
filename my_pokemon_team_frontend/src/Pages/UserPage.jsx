@@ -33,7 +33,13 @@ const UserPage = () => {
               body: JSON.stringify(e.target.value),
           });
          if (response.ok) {
-            fetchPokemons();
+              const newPokemons = [...pokemons]
+              for (const pokemon of newPokemons){
+                if (pokemon.publicId == e.target.id){
+                  pokemon.nickName = e.target.value
+                }
+              }
+              setPokemons(newPokemons);
           }
         }catch (error){
           console.error( error.message + "Nickname update not successful.")
