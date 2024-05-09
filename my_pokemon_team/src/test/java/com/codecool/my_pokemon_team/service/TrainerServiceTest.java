@@ -15,7 +15,9 @@ import java.util.Optional;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 @ExtendWith(MockitoExtension.class)
 class TrainerServiceTest {
@@ -53,7 +55,8 @@ class TrainerServiceTest {
         assertThat(actualTrainerDTO.name()).isSameAs(expectedTrainerDTO.name());
     }
 
-    /*@Test
+
+    @Test
     public void testDeleteTrainer_whenDelete_thenRemoveTrainer() {
         //Arrange
         String trainerName = "TG";
@@ -69,27 +72,28 @@ class TrainerServiceTest {
         //Assert
         assertThat(deletedTrainer).isEmpty();
 
+
     }
 
-        @Test
-        public void testUpdatePassword_whenUpdate_thenTrainerObject(){
-            //Arrange
-            String trainerName = "TG";
-            String password = "grookey1234";
-            Long id = 1L;
-            Trainer trainerEntity = createTrainerEntity(trainerName, password, id);
-            boolean trainerEntity2 = trainerRepository.findById(id).isPresent();
-            System.out.println(trainerEntity2);
+    @Test
+    public void testUpdatePassword_whenUpdate_thenTrainerObject() {
+        //Arrange
+        String trainerName = "TG";
+        String password = "grookey1234";
+        Long id = 1L;
+        Trainer trainerEntity = createTrainerEntity(trainerName, password, id);
+        boolean trainerEntity2 = trainerRepository.findById(id).isPresent();
+        System.out.println(trainerEntity2);
 
-            //Act
-            trainerService.updatePassword(id, "pikachu333");
-            boolean updatedTrainerEntity = trainerRepository.findById(id).isPresent();
-            System.out.println(updatedTrainerEntity);
-            //Assert
-            assertThat(updatedTrainerEntity).isNotNull();
-            //assertThat(updatedTrainerEntity.getPassword()).isEqualTo("pikachu333");
+        //Act
+        trainerService.updatePassword(id, "pikachu333");
+        boolean updatedTrainerEntity = trainerRepository.findById(id).isPresent();
+        System.out.println(updatedTrainerEntity);
+        //Assert
+        assertThat(updatedTrainerEntity).isNotNull();
+        //assertThat(updatedTrainerEntity.getPassword()).isEqualTo("pikachu333");
 
-        }*/
+    }
 
     private Trainer createTrainerEntity(String name, String password, Long id) {
         Trainer trainerEntity = new Trainer();
