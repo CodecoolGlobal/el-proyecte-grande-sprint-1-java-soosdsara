@@ -7,6 +7,9 @@ import Registration from "./Pages/Registration.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./Pages/Layout/Layout.jsx";
 
+import "./index.css";
+
+
 const router = createBrowserRouter([
   {
     path: "/",

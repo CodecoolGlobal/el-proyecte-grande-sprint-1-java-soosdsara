@@ -20,10 +20,10 @@ function LoginForm() {
     const response = await fetch(`/api/trainer/${name}`);
     if (!response.ok) {
       setShowMessage(true);
-      throw new Error("No trainer with this username:" + name);
+      throw new Error("No trainer with this username:" + JSON.stringify(response.body));
     } else {
-        localStorage.setItem("trainerName", JSON.stringify(name));
-        navigate(`/userpage`);
+      localStorage.setItem("trainerName", JSON.stringify(name));
+      navigate(`/userpage`);
     }
   }
 
@@ -33,9 +33,7 @@ function LoginForm() {
       <form>
         <div>
           {showMessage ? (
-            <p style={{ color: "red" }}>
-              Incorrect password or user!
-            </p>
+            <p style={{ color: "red" }}>Incorrect password or user!</p>
           ) : null}
           <label htmlFor="loginName">
             {" "}

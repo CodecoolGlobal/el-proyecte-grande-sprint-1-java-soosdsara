@@ -32,7 +32,7 @@ public class TrainerController {
     @GetMapping("/{trainerName}")
     public ResponseEntity<?> getTrainerName(@PathVariable String trainerName) {
         if(trainerService.checkTrainerName(trainerName)) {
-            return ResponseEntity.ok(trainerName);
+            return ResponseEntity.ok("Trainer found");
         }
         return ResponseEntity.badRequest().body("No trainer with this username:" + trainerName);
     }
