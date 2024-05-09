@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface TrainerRepository extends JpaRepository<Trainer, Long> {
 
     @Modifying
-    @Query("update Trainer trainer set trainer.password = ?2 where trainer.id = ?1")
+    @Query("update Trainer trainer set trainer.password = ?2 where trainer.trainerName = ?1")
     void setTrainerEntityPasswordByTrainerName(String trainerName, String password);
 
     void deleteByTrainerName(String trainerName);

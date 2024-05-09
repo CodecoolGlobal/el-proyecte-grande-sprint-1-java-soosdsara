@@ -36,6 +36,7 @@ public class TrainerService {
         trainerRepository.setTrainerEntityPasswordByTrainerName(trainerName, password);
     }
 
+    @Transactional
     public void deleteTrainer(String trainerName) {
         trainerRepository.deleteByTrainerName(trainerName);
     }
