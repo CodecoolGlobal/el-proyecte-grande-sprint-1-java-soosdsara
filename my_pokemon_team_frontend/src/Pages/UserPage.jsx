@@ -1,17 +1,16 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from "react-router-dom";
 import Pokemon from '../Components/Pokemon';
 import { useNavigate } from 'react-router';
 
 const UserPage = () => {
-  const trainerId = useLocation().pathname.split("/userpage/")[1];
+  const trainerName = JSON.parse(localStorage.getItem("trainerName"));
   const [pokemons, setPokemons] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() =>{
    
     async function fetchPokemons(){
-      const response = await fetch (`/api/pokemons/${trainerId}`);
+      const response = await fetch (`/api/pokemons/${trainerName}`);
       console.log(response.status)
       if(response.status != 200){
         navigate("/");
@@ -27,7 +26,7 @@ const UserPage = () => {
     <>
       {pokemons.length == 0 ? <div>
       <label>You have currently no pokemons.</label>
-      <button type="button" onClick={() => navigate(`/userpage/${trainerId}/search`)}>Search Pokemons</button>
+      <button type="button" onClick={() => navigate(`/userpage/${trainerName}/search`)}>Search Pokemons</button>
       </div> :
        pokemons?.map((pokemon) => <div key={pokemon.species}><Pokemon pokemon={pokemon}></Pokemon></div>)}
     </>

@@ -1,11 +1,10 @@
-import { useParams } from "react-router-dom";
 import { useState } from "react";
 import SearchForm from "../Components/SearchForm";
 import PokemonList from "../Components/PokemonList";
 
 
 function Search() {
-  const { id } = useParams();
+  const trainerName = JSON.parse(localStorage.getItem("trainerName"));
   const [pokemons, setPokemons] = useState([]);
 
   const fetchPokemons = async (search) => {
@@ -22,7 +21,7 @@ function Search() {
   };
 
   const addPokemon = async (pokemon) => {
-      const response = await fetch(`/api/pokemons/${id}`, {
+      const response = await fetch(`/api/pokemons/${trainerName}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(pokemon),

@@ -23,11 +23,11 @@ public class PokemonService {
         this.pokemonSpeciesRepository = pokemonSpeciesRepository;
     }
 
-    public void addPokemon(int trainerId, PokemonDTO pokemonDTO) {
+    public void addPokemon(String trainerName, PokemonDTO pokemonDTO) {
         Pokemon pokemonEntity = new Pokemon();
         PokemonSpecies species = pokemonSpeciesRepository.findBySpecies(pokemonDTO.species()).get(0);
         pokemonEntity.setSpecies(species);
-        pokemonEntity.setTrainer(trainerService.findTrainerById(trainerId));
+        pokemonEntity.setTrainer(trainerService.findTrainerByName(trainerName));
         pokemonEntity.setTypes(getPokemonTypes(pokemonDTO.types()));
         pokemonEntity.setPic(pokemonDTO.pic());
         pokemonEntity.setHp(pokemonDTO.hp());
@@ -44,9 +44,9 @@ public class PokemonService {
         return types;
     }
 
-    public List<PokemonDTO> getPokemonOfTrainer(int trainerId) {
+    public List<PokemonDTO> getPokemonOfTrainer(String trainerName) {
         List<Pokemon> pokemonEntityList = pokemonRepository.findByTrainer(
-                trainerService.findTrainerById((long)trainerId)
+                trainerService.findTrainerByName(trainerName)
         );
         return pokemonEntityList.stream().map(this::convertEntityToDTO)
                 .toList();
