@@ -2,6 +2,7 @@ package com.codecool.my_pokemon_team.controller;
 
 import com.codecool.my_pokemon_team.controller.dto.TrainerDTO;
 import com.codecool.my_pokemon_team.service.TrainerService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -27,5 +28,12 @@ public class TrainerController {
     @DeleteMapping("{trainerName}")
     public void deleteTrainer(@PathVariable String trainerName) {
         trainerService.deleteTrainer(trainerName);
+    }
+    @GetMapping("/{trainerName}")
+    public ResponseEntity<?> getTrainerName(@PathVariable String trainerName) {
+        if(trainerService.checkTrainerName(trainerName)) {
+            return ResponseEntity.ok(trainerName);
+        }
+        return ResponseEntity.badRequest().body("No trainer with this username:" + trainerName);
     }
 }

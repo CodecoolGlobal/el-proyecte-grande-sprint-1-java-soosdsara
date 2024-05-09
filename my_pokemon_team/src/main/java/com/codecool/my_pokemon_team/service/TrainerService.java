@@ -6,6 +6,8 @@ import com.codecool.my_pokemon_team.repository.TrainerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 
 @Service
 public class TrainerService {
@@ -15,8 +17,8 @@ public class TrainerService {
         this.trainerRepository = trainerRepository;
     }
 
-    public Trainer findTrainerById(long trainerId) {
-        return trainerRepository.findById(trainerId).get();
+    public Trainer findTrainerByName(String trainerName) {
+        return trainerRepository.findByTrainerName(trainerName).get();
     }
 
     public void addTrainer(TrainerDTO trainerDTO) {
@@ -39,5 +41,10 @@ public class TrainerService {
     @Transactional
     public void deleteTrainer(String trainerName) {
         trainerRepository.deleteByTrainerName(trainerName);
+    }
+
+    public boolean checkTrainerName(String name) {
+        Optional<Trainer> trainer = trainerRepository.findByTrainerName(name);
+        return trainer.isPresent();
     }
 }
