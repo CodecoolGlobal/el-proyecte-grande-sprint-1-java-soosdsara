@@ -6,10 +6,11 @@ import com.codecool.my_pokemon_team.model.pokemon.PokemonSpecies;
 import com.codecool.my_pokemon_team.model.pokemon.PokemonType;
 import com.codecool.my_pokemon_team.repository.PokemonRepository;
 import com.codecool.my_pokemon_team.repository.PokemonSpeciesRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class PokemonService {
@@ -56,6 +57,7 @@ public class PokemonService {
         return new PokemonDTO(
                 pokemonEntity.getPublicId(),
                 pokemonEntity.getSpecies().getSpecies(),
+                pokemonEntity.getNickName(),
                 convertTypeToString(pokemonEntity.getTypes()),
                 pokemonEntity.getPic(),
                 pokemonEntity.getHp(),
@@ -67,6 +69,14 @@ public class PokemonService {
     private List<String> convertTypeToString(List<PokemonType> pokemonTypeList) {
         return pokemonTypeList.stream().map(Enum::toString)
                 .toList();
+    }
+
+    @Transactional
+    public PokemonDTO updatePokemonNickName(UUID id, String nickName) {
+        Pokemon pokemon = pokemonRepository.findPokemonByPublicId(id);
+        pokemon.setNickName(nickName);
+        pokemonRepository.save(pokemon);
+        return convertEntityToDTO(pokemon);
     }
 
 }
