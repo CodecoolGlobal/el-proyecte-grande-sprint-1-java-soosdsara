@@ -52,7 +52,6 @@ const UserPage = () => {
     <>
       {pokemons.length == 0 ? <div>
       <label>You have currently no pokemons.</label>
-      <button type="button" onClick={() => navigate(`/userpage/${trainerName}/search`)}>Search Pokemons</button>
       </div> :
        pokemons?.map((pokemon) => <div key={pokemon.publicId}><Pokemon pokemon={pokemon}></Pokemon><input 
        id={pokemon.publicId} placeholder={"nickname"} onKeyDown={(e) => {
