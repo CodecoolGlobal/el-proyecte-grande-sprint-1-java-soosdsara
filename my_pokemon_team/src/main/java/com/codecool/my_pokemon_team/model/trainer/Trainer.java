@@ -4,6 +4,7 @@ import com.codecool.my_pokemon_team.model.pokemon.Pokemon;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -43,5 +44,18 @@ public class Trainer {
 
     public Set<Pokemon> getPokemonEntities() {
         return pokemonEntities;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Trainer trainer = (Trainer) o;
+        return Objects.equals(id, trainer.id) && Objects.equals(trainerName, trainer.trainerName) && Objects.equals(password, trainer.password) && Objects.equals(pokemonEntities, trainer.pokemonEntities);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, trainerName, password, pokemonEntities);
     }
 }

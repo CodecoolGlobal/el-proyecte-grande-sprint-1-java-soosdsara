@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/pokemons")
@@ -33,5 +34,10 @@ public class PokemonController {
     @GetMapping("/{trainerName}")
     public List<PokemonDTO> getPokemonOfTrainer(@PathVariable String trainerName) {
         return pokemonService.getPokemonOfTrainer(trainerName);
+    }
+
+    @PatchMapping("/{id}")
+    public PokemonDTO patchPokemonOfTrainer(@PathVariable UUID id, @RequestBody String nickName) {
+        return pokemonService.updatePokemonNickName(id, nickName);
     }
 }

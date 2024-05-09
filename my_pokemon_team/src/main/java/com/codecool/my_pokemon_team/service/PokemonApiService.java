@@ -71,7 +71,7 @@ public class PokemonApiService {
         int defense = getPokemonStat(pokemonObj, 2);
         List<String> types = getPokemonTypes(pokemonObj);
 
-        return new PokemonDTO(null, species, types, pic, hp, attack, defense);
+        return new PokemonDTO(null, species, null, types, pic, hp, attack, defense);
     }
 
     private static String getPicture(JsonNode pokemonObj) {
