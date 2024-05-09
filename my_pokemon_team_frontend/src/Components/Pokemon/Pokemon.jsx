@@ -1,20 +1,21 @@
-const Pokemon = ( {pokemon} ) => {
+/* eslint-disable react/prop-types */
+
+import "./Pokemon.css";
+
+const Pokemon = ({ pokemon }) => {
+  const species = pokemon.species[0].toUpperCase() + pokemon.species.substring(1); 
   return (
     <div>
-      <label>Species: {pokemon.species}</label>
+      <label>Species: {species}</label>
       <label></label>
       <br></br>
       <label>
-        Type:
-        <div>
-          {pokemon.types.map((t) => (
-            <div key={t}>{t}</div>
+        Type: {pokemon.types.map((t, i) => (
+          i === 0 && pokemon.types.length > 1 ? <span key={t}>{t + " / "}</span>
+            : <span key={t}>{t}</span>
           ))}
-        </div>
       </label>
-
       <br></br>
-      <label>Picture:</label>
       <img src={pokemon.pic} alt="picture" />
       <br></br>
       <label>HP: {pokemon.hp}</label>
