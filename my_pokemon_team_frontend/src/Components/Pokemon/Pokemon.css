@@ -1,0 +1,7 @@
+img {
+  width: 20vw;
+  /* border: 4px solid black; */
+  border-radius: 3%;
+  /* background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/80ff523f-ff84-457d-a547-464588d3a3d3/df4qvi5-905be8b5-7afc-4315-aa93-2a92b552e30a.jpg/v1/fill/w_1000,h_800,q_70,strp/field_background_7_by_willdinomaster55_df4qvi5-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTIwMCIsInBhdGgiOiJcL2ZcLzgwZmY1MjNmLWZmODQtNDU3ZC1hNTQ3LTQ2NDU4OGQzYTNkM1wvZGY0cXZpNS05MDViZThiNS03YWZjLTQzMTUtYWE5My0yYTkyYjU1MmUzMGEuanBnIiwid2lkdGgiOiI8PTE1MDAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.xaaH28RyjG00WHPnPltqH3Kks30uOBSFXPJfxueelfw"); */
+  background-size: auto 100%;
+}
