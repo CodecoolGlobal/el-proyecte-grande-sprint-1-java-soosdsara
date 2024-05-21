@@ -64,8 +64,8 @@ public class WebSecurityConfig {
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("user/**").permitAll()
-                                .requestMatchers("suncalculator/**").hasRole("USER")
+                        auth.requestMatchers("api/trainer/**").permitAll()
+                                .requestMatchers("api/pokemons/**").authenticated()
                                 .requestMatchers("/error").permitAll()
                                 .anyRequest().authenticated()
                 );
