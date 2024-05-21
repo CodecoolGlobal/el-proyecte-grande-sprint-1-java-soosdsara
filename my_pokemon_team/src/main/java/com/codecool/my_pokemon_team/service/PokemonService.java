@@ -75,8 +75,8 @@ public class PokemonService {
     public PokemonDTO updatePokemonNickName(UUID id, String nickName) {
         Pokemon pokemon = pokemonRepository.findPokemonByPublicId(id);
         pokemon.setNickName(nickName);
-        pokemonRepository.save(pokemon);
-        return convertEntityToDTO(pokemon);
+       // pokemonRepository.save(pokemon); to remove
+        return convertEntityToDTO(pokemon); //to remove
     }
 
 }

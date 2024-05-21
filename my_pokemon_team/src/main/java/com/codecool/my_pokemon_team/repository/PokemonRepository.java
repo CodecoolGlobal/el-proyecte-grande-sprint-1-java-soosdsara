@@ -10,5 +10,4 @@ import java.util.UUID;
 public interface PokemonRepository extends JpaRepository<Pokemon, Long> {
     List<Pokemon> findByTrainer(Trainer trainer);
     Pokemon findPokemonByPublicId(UUID publicId);
-
 }
