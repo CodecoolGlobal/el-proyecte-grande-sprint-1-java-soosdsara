@@ -33,7 +33,7 @@ public class TrainerController {
         this.jwtUtils = jwtUtils;
     }
 
-    @PostMapping
+    @PostMapping("/registration")
     public void registerTrainer(@RequestBody TrainerDTO trainerDTO) {
         trainerService.addTrainer(trainerDTO);
     }
@@ -50,7 +50,7 @@ public class TrainerController {
         trainerService.deleteTrainer(trainerName);
     }
 
-    @GetMapping("/{trainerName}")
+    @PostMapping()
     public ResponseEntity<?> loginTrainer(@RequestBody TrainerDTO trainerDTO) {
 
         Authentication authentication = authenticationManager
