@@ -6,13 +6,19 @@ function RegistrationForm() {
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
-    const [showMessage, setShowMessage] = useState(false);
-    const [color, setColor] = useState('black')
+    const [message, setMessage] = useState({ show: false, content: "" });
+
 
     const passwordCriteria = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
     async function postTrainer(e) {
         e.preventDefault();
+
+        if (!passwordCriteria.test(password)) {
+            setMessage({ show: true, content: "Password does not meet requirements."});
+            return;
+        }
+
         try {
             const response = await fetch('/api/trainer', {
                 method: "POST",
@@ -22,30 +28,27 @@ function RegistrationForm() {
                 body: JSON.stringify({ name, password }),
             });
 
-            if (!passwordCriteria.test(password)) {
-                setColor("red");
-            } else {
-                setColor("blue");
-            }
+
 
             if (!response.ok) {
-                setShowMessage(true);
+                setMessage({ show: true, content: "Trainer name is taken. Please try another name."});
                 throw new Error('Server error: ' + response.status);
             }
 
-
             navigate("/");
         } catch (error) {
-            console.error(error.message + " - Please choose another trainer name.")
+            console.error(error.message);
         }
     }
 
     function handleNameChange(e) {
-        setName(e.target.value)
+        setName(e.target.value);
+        setMessage({ show: false, content: "" });
     }
 
     function handlePasswordChange(e) {
         setPassword(e.target.value);
+        setMessage({ show: false, content: ""});
     }
 
     function togglePasswordVisibility() {
@@ -94,11 +97,11 @@ function RegistrationForm() {
                         </tr>
                     </tbody>
                 </table>
-                <div><small style={{ color: color }}>Password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, and one number.</small></div>
+                <div><small>Password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, and one number.</small></div>
                 <button>Sign up</button>
 
             </form>
-            {showMessage ? <p style={{ color: 'red' }}><small>Unfortunately, something went wrong! Trainer name is taken or password requirements not met. Please try again.</small></p> : null}
+            {message.show ? <p style={{ color: 'red' }}><small>{message.content}</small></p> : null}
         </div>
     )
 }
