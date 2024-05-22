@@ -10,7 +10,7 @@ function RegistrationForm() {
 
     async function postTrainer(e) {
         e.preventDefault();
-        try{
+        try {
             const response = await fetch('/api/trainer', {
                 method: "POST",
                 headers: {
@@ -25,8 +25,8 @@ function RegistrationForm() {
             }
 
             navigate("/");
-        } catch (error){
-            console.error( error.message + " - Please choose another trainer name.")
+        } catch (error) {
+            console.error(error.message + " - Please choose another trainer name.")
         }
     }
 
@@ -45,31 +45,44 @@ function RegistrationForm() {
     return (
         <div>
             <h1>Start your POKEMON journey HERE!</h1>
+            {showMessage ? <p style={{ color: 'red' }}>Unfortunately, this trainer name is already taken. Please choose another one!</p> : null}
             <form onSubmit={postTrainer}>
-                <div>
-                    {showMessage ? <p style={{ color: 'red' }}>Unfortunately, this trainer name is already taken. Please choose another one!</p> : null}
-                    <label htmlFor="RegisterName"> Trainer name:
-                        <input type="text"
-                            name="RegisterName"
-                            id="RegisterName"
-                            value={name}
-                            onChange={handleNameChange}
-                        />
-                    </label>
-                </div>
-                <div>
-                    <label htmlFor="RegisterPassword"> Password:
-                        <input type={showPassword ? 'text' : 'password'}
-                            name="RegisterPassword"
-                            id="RegisterPassword"
-                            value={password}
-                            onChange={handlePasswordChange}
-                        />
-                    </label>
-                    <button type="button" onClick={togglePasswordVisibility}>
-                        {showPassword ? 'Hide' : 'Show'} Password
-                    </button>
-                </div>
+                <table>
+                    <tr>
+                        <td>
+                            <label htmlFor="RegisterName"> Trainer name: </label>
+                        </td>
+                        <td>
+                            <input type="text"
+                                name="RegisterName"
+                                id="RegisterName"
+                                value={name}
+                                onChange={handleNameChange}
+                            />
+                        </td>
+                        <td></td>
+                    </tr>
+                
+                        <tr>
+                            <td>
+                                <label htmlFor="RegisterPassword"> Password: </label>
+                            </td>
+                            <td>
+                                <input type={showPassword ? 'text' : 'password'}
+                                    name="RegisterPassword"
+                                    id="RegisterPassword"
+                                    value={password}
+                                    onChange={handlePasswordChange}
+                                />
+                            </td>
+                        
+                        <td>
+                            <button type="button" onClick={togglePasswordVisibility}>
+                                {showPassword ? 'Hide' : 'Show'} Password
+                            </button>
+                        </td>
+                        </tr>
+                </table>
                 <button>Sign up</button>
             </form>
         </div>
