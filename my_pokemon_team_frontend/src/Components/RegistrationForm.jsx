@@ -7,6 +7,9 @@ function RegistrationForm() {
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [showMessage, setShowMessage] = useState(false);
+    const [color, setColor] = useState('black')
+
+    const passwordCriteria = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
     async function postTrainer(e) {
         e.preventDefault();
@@ -19,10 +22,17 @@ function RegistrationForm() {
                 body: JSON.stringify({ name, password }),
             });
 
+            if (!passwordCriteria.test(password)) {
+                setColor("red");
+            } else {
+                setColor("blue");
+            }
+
             if (!response.ok) {
                 setShowMessage(true);
                 throw new Error('Server error: ' + response.status);
             }
+
 
             navigate("/");
         } catch (error) {
@@ -45,24 +55,24 @@ function RegistrationForm() {
     return (
         <div>
             <h1>Start your POKEMON journey HERE!</h1>
-            {showMessage ? <p style={{ color: 'red' }}>Unfortunately, this trainer name is already taken. Please choose another one!</p> : null}
             <form onSubmit={postTrainer}>
                 <table>
-                    <tr>
-                        <td>
-                            <label htmlFor="RegisterName"> Trainer name: </label>
-                        </td>
-                        <td>
-                            <input type="text"
-                                name="RegisterName"
-                                id="RegisterName"
-                                value={name}
-                                onChange={handleNameChange}
-                            />
-                        </td>
-                        <td></td>
-                    </tr>
-                
+                    <tbody>
+                        <tr>
+                            <td>
+                                <label htmlFor="RegisterName"> Trainer name: </label>
+                            </td>
+                            <td>
+                                <input type="text"
+                                    name="RegisterName"
+                                    id="RegisterName"
+                                    value={name}
+                                    onChange={handleNameChange}
+                                />
+                            </td>
+                            <td></td>
+                        </tr>
+
                         <tr>
                             <td>
                                 <label htmlFor="RegisterPassword"> Password: </label>
@@ -74,17 +84,21 @@ function RegistrationForm() {
                                     value={password}
                                     onChange={handlePasswordChange}
                                 />
+
                             </td>
-                        
-                        <td>
-                            <button type="button" onClick={togglePasswordVisibility}>
-                                {showPassword ? 'Hide' : 'Show'} Password
-                            </button>
-                        </td>
+                            <td>
+                                <button type="button" onClick={togglePasswordVisibility}>
+                                    {showPassword ? 'Hide' : 'Show'} Password
+                                </button>
+                            </td>
                         </tr>
+                    </tbody>
                 </table>
+                <div><small style={{ color: color }}>Password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, and one number.</small></div>
                 <button>Sign up</button>
+
             </form>
+            {showMessage ? <p style={{ color: 'red' }}><small>Unfortunately, something went wrong! Trainer name is taken or password requirements not met. Please try again.</small></p> : null}
         </div>
     )
 }
