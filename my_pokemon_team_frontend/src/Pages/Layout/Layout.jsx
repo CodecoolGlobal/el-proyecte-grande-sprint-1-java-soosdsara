@@ -16,9 +16,9 @@ const Layout = () => {
         </Link>
         <NavLink to={`/userpage/search`}>
           <button>Find a new pokemon</button>
-          <Link to="/">
-            <button onClick={handleLogout}>Log out</button>
-           </Link>
+        </NavLink>
+        <NavLink to="/">
+            <button className = "logoutbtn" onClick={handleLogout}>Log out</button>
         </NavLink>
       </nav>
       <Outlet />

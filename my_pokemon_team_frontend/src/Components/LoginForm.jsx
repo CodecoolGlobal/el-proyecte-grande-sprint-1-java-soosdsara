@@ -16,8 +16,7 @@ function LoginForm() {
     setPassword(e.target.value);
   }
 
-  async function handleLogin(e) {
-    e.preventDefault();
+  async function handleLogin() {
     const response = await loginUser();
 
     if (!response.ok) {
