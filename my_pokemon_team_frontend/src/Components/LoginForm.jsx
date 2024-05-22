@@ -22,6 +22,7 @@ function LoginForm() {
       setShowMessage(true);
       throw new Error("No trainer with this username:" + JSON.stringify(response.body));
     } else {
+      
       localStorage.setItem("trainerName", JSON.stringify(name));
       navigate(`/userpage`);
     }
