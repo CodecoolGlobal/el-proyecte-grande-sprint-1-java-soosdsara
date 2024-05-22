@@ -26,10 +26,9 @@ public class TrainerController {
     private final JwtUtils jwtUtils;
 
 
-    public TrainerController(TrainerService trainerService, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
+    public TrainerController(TrainerService trainerService, AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
         this.trainerService = trainerService;
         this.authenticationManager = authenticationManager;
-
         this.jwtUtils = jwtUtils;
     }
 
