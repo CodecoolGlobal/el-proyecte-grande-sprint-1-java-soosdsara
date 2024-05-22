@@ -16,16 +16,30 @@ function LoginForm() {
     setPassword(e.target.value);
   }
 
-  async function handleLogin() {
-    const response = await fetch(`/api/trainer/${name}`);
+  async function handleLogin(e) {
+    e.preventDefault();
+    const response = await loginUser();
+
     if (!response.ok) {
       setShowMessage(true);
-      throw new Error("No trainer with this username:" + JSON.stringify(response.body));
+      localStorage.removeItem("trainerData");
+      throw new Error(`No trainer with this username: ${name}}`);
     } else {
-      
-      localStorage.setItem("trainerName", JSON.stringify(name));
+      const responseBody = await response.json();
+      localStorage.setItem("trainerData", JSON.stringify(responseBody));
       navigate(`/userpage`);
     }
+  }
+
+  async function loginUser() {
+    const response = await fetch("/api/trainer", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, password }),
+    });
+    return response;
   }
 
   return (
