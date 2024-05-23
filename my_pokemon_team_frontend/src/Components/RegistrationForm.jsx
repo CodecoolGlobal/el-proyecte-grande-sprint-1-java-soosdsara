@@ -28,8 +28,6 @@ function RegistrationForm() {
                 body: JSON.stringify({ name, password }),
             });
 
-
-
             if (!response.ok) {
                 setMessage({ show: true, content: "Trainer name is taken. Please try another name."});
                 throw new Error('Server error: ' + response.status);
