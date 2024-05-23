@@ -4,6 +4,7 @@ import com.codecool.my_pokemon_team.model.trainer.Trainer;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -29,10 +30,6 @@ public class Pokemon {
 
     public UUID getPublicId() {
         return publicId;
-    }
-
-    public int getPrivateId() {
-        return privateId;
     }
 
     public PokemonSpecies getSpecies() {
@@ -97,5 +94,34 @@ public class Pokemon {
 
     public void setDefense(int defense) {
         this.defense = defense;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pokemon pokemon = (Pokemon) o;
+        return hp == pokemon.hp && attack == pokemon.attack && defense == pokemon.defense && Objects.equals(species, pokemon.species) && Objects.equals(nickName, pokemon.nickName) && Objects.equals(trainer, pokemon.trainer) && Objects.equals(types, pokemon.types) && Objects.equals(pic, pokemon.pic);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(species, nickName, trainer, types, pic, hp, attack, defense);
+    }
+
+    @Override
+    public String toString() {
+        return "Pokemon{" +
+                "privateId=" + privateId +
+                ", publicId=" + publicId +
+                ", species=" + species +
+                ", nickName='" + nickName + '\'' +
+                ", trainer=" + trainer +
+                ", types=" + types +
+                ", pic='" + pic + '\'' +
+                ", hp=" + hp +
+                ", attack=" + attack +
+                ", defense=" + defense +
+                '}';
     }
 }
