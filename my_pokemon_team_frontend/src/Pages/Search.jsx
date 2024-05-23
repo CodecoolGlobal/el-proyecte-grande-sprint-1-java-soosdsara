@@ -20,17 +20,19 @@ function Search() {
     const response = await fetch(`/api/pokemons?search=${search}`, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${trainerData.jwt}`,
       },
     });
-    if (!response.ok) {
+    if (response.status === 401 || response.status === 403) {
       localStorage.removeItem("trainerData");
       navigate("/");
-      throw new Error("Failed to fetch pokemon");
+      console.error("Authentication failed");
+    } else if (!response.ok) {
+      console.error("Failed to fetch pokemon");
+    } else {
+      const pokemons = await response.json();
+      setPokemons(pokemons);
     }
-    const pokemons = await response.json();
-    setPokemons(pokemons);
   }
 
   const addPokemon = async (pokemon) => {
@@ -42,7 +44,7 @@ function Search() {
         body: JSON.stringify(pokemon),
       });
       if (!response.ok) {
-        throw new Error("Failed to add pokemon");
+        console.error("Failed to add pokemon");
       }
       return response.json
   };
