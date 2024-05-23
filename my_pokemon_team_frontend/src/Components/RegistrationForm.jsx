@@ -19,8 +19,8 @@ function RegistrationForm() {
             return;
         }
 
-        try {
-            const response = await fetch('/api/trainer', {
+        try{
+            const response = await fetch('/api/trainer/registration', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -97,7 +97,6 @@ function RegistrationForm() {
                 </table>
                 <div><small>Password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, and one number.</small></div>
                 <button>Sign up</button>
-
             </form>
             {message.show ? <p style={{ color: 'red' }}><small>{message.content}</small></p> : null}
         </div>
