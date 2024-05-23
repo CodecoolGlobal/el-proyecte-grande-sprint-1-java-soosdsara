@@ -82,6 +82,39 @@ class PokemonServiceTest {
     }
 
     @Test
-    void getPokemonOfTrainer() {
+    void getPokemonOfTrainerWithValidTrainerObject() {
+        String trainerName = "Ash";
+        PokemonSpecies pokemonSpecies = new PokemonSpecies();
+        pokemonSpecies.setSpecies("charmander");
+        pokemonSpecies.setId(1);
+        PokemonDTO pokemonDTOExpected = new PokemonDTO(null,
+                "charmander",
+                null,
+                new ArrayList<>(List.of("FIRE")),
+                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/4.png",
+                39,52,43);
+        Trainer trainer = new Trainer();
+        trainer.setId(1L);
+        trainer.setTrainerName("Ash");
+        trainer.setPassword("password");
+        when(trainerService.findTrainerByName("Ash")).
+                thenReturn(trainer);
+        Pokemon expectedPokemon = new Pokemon();
+        expectedPokemon.setSpecies(pokemonSpecies);
+        expectedPokemon.setTypes(List.of(PokemonType.FIRE));
+        expectedPokemon.setTrainer(trainer);
+        expectedPokemon.setNickName(null);
+        expectedPokemon.setPic("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/4.png");
+        expectedPokemon.setAttack(52);
+        expectedPokemon.setDefense(43);
+        expectedPokemon.setHp(39);
+        when(pokemonRepository.findByTrainer(trainer)).thenReturn(
+                List.of(expectedPokemon));
+        //Act
+        PokemonDTO pokemonDTO = pokemonService.getPokemonOfTrainer(trainerName).get(0);
+        //Verify
+        System.out.println(pokemonDTO);
+        System.out.println(pokemonDTOExpected);
+        assertTrue(pokemonDTOExpected.equals(pokemonDTO));
     }
 }
