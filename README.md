@@ -1,6 +1,251 @@
-# My Pokemon Team
-The My Pokemon Team project is a Team project currently under active development and we develop new features every week.
+<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
+<a id="readme-top"></a>
 
-The application is built with JAVA Spring Boot and JavaScript React.
+<!-- PROJECT SHIELDS -->
 
-We use an external REST API and SQL database to store data.
+<h1 align="center">My Pokémon Team </h1>
+
+
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+        <li><a href="#with-docker">Steps with Docker</a></li>
+        <li><a href="#without-docker">Steps withot Docker</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+  </ol>
+</details>
+
+<!-- ABOUT THE PROJECT -->
+
+## About The Project
+
+This project is the result of a team effort to develop a web application inspired by the Pokémon games. The web app uses an external Pokémon API to keep it up-to-date and include the latest generation of Pokémon.
+
+Current features:
+
+- Team management: They can search for any type of Pokémon from a huge up-to-date database and capture it in their own team.
+  They are able to name and release Pokémon.
+- Pokédex: A complete database where players can view and track their acquired Pokémon.
+
+
+Planned features:
+
+- Battle system: The player can compare the power of his Pokémon with other Pokémon within the framework of a battle.
+- Evolution: Pokémon can level up and evolve as they gain more experience points.
+
+This project gives Pokémon fans a chance to enjoy this wonderful universe while having the latest Pokémon database.
+### Built With
+
+<a id="built-with"></a>
+
+* [![JavaScript][JavaScript.com]][JavaScript-url]
+* [![Java][Java.com]][Java-url]
+* [![Vite][Vite.com]][Vite-url]
+* [![React][React.js]][React-url]
+* [![Spring Boot][Spring.com]][Spring-url]
+* [![Postgresql][Postgresql.com]][Postgresql-url]
+* [![Docker][Docker.com]][Docker-url]
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- GETTING STARTED -->
+
+## Getting Started
+
+<a id="getting-started"></a>
+
+### Prerequisites
+
+<a id="prerequisites"></a>
+
+**With Docker**
+
+- [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+- [Docker](https://docs.docker.com/desktop/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+
+**Without Docker**
+
+- [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+- [Node.js](https://nodejs.org/)
+- [Java Development Kit (JDK)](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
+- [Maven](https://maven.apache.org/install.html)
+- [Postgresql](https://www.postgresql.org/)
+
+
+
+### Installation
+
+<a id="installation"></a>
+
+1. Clone the repo
+
+ ```
+ git clone https://github.com/your_username_/Project-Name.git
+ cd Project-Name
+ ```
+
+2. Create a new PostgreSQL database in terminal or with pgAdmin4.
+
+3. Copy the _.env.sample_ as _.env_ and set the following environment variables:
+
+```
+JWT_SECRET=your_jwt_secret_key
+DATABASE_USERNAME=your_database_username
+DATABASE_PASSWORD=your_database_password
+``` 
+
+#### With Docker
+
+<a id="with-docker"></a>
+
+4. Set the following environment variables in the .env file:
+
+```
+DATABASE_URL=jdbc:postgresql://pokemon-database:5432/my_pokemon_team
+BACKEND_URL=http://pokemon-backend:8080
+``` 
+
+5. Run the Docker and the following command to start all necessary services:
+
+```
+docker-compose up
+```
+
+Backend availability: http://localhost:8080
+
+Frontend availability: http://localhost:3000
+
+#### Without Docker
+
+<a id="without-docker"></a>
+
+**Backend:**
+
+4. Set the following environment variables in the .env file:
+
+  ```
+  DATABASE_URL=jdbc:postgresql://localhost:5432/your_database
+  BACKEND_URL=http://localhost:8080
+  ``` 
+
+5. Navigate to the backend library:
+
+   ```
+   cd my_pokemon_team
+   ```
+
+6. Download dependencies:
+
+   ```
+   ./mvnw clean install
+   ```
+
+7. Start the application:
+
+   ```
+   ./mvnw spring-boot:run
+   ```
+
+Backend availability: http://localhost:8080
+
+
+**Frontend:**
+
+4. Open a new terminal window and navigate to the frontend directory:
+
+  ```
+  cd my_pokemon_team_frontend
+  ```
+
+5. Install dependencies:
+
+  ```
+  npm install
+  ```
+
+6. Start the application:
+
+  ```
+  npm run dev
+  ```
+
+Frontend availability: http://localhost:5173
+
+
+
+
+
+<!-- USAGE EXAMPLES -->
+
+## Usage
+
+<a id="usage"></a>
+
+Register a user and after logging in you can discover all the Pokémon.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+See the [open issues](https://github.com/CodecoolGlobal/solar-watch-security-java-soosdsara/issues) for a full list of
+proposed features (and known issues).
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
+[linkedin-shield]: https://img.shields.io/badge/LinkedIn-frontend?logo=Linkedin&logoColor=black&labelColor=blue&color=blue
+
+[linkedin-url]: https://linkedin.com/in/sára-soós-251772305
+
+[product-screenshot]: images/screenshot.png
+
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&color=darkblue
+
+[React-url]: https://reactjs.org/
+
+[Postgresql.com]: https://img.shields.io/badge/PostgreSQL-sql?style=for-the-badge&logo=postgresql&color=darkred
+
+[Postgresql-url]: https://www.postgresql.org/
+
+[Spring.com]: https://img.shields.io/badge/Spring_Boot-boot?style=for-the-badge&logo=Spring%20Boot&color=yellow
+
+[Spring-url]: https://spring.io/projects/spring-boot
+
+[Java.com]: https://img.shields.io/badge/Java-language?style=for-the-badge&logo=openjdk&color=yellow
+
+[Java-url]: https://www.oracle.com/java/technologies/?er=221886
+
+[JavaScript.com]: https://img.shields.io/badge/JavaScript-language?style=for-the-badge&logo=javascript&color=darkblue
+
+[JavaScript-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+
+[Vite.com]: https://img.shields.io/badge/Vite-frontend?style=for-the-badge&logo=vite&color=darkred
+
+[Vite-url]: https://vitejs.dev/
+
+[Docker.com]: https://img.shields.io/badge/Docker-docker?style=for-the-badge&logo=Docker&color=darkblue
+
+[Docker-url]: https://www.docker.com/
+
+[login-screenshot]: images/login.png
+
+[example-screenshot]: images/example.png
+
