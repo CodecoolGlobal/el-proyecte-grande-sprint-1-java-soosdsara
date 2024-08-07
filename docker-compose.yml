@@ -1,48 +1,31 @@
 services:
   postgres:
-    container_name: pokemon-database-cont
+    container_name: pokemon-database
     image: postgres:latest
     environment:
-      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_USERNAME: ${DATABASE_USERNAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: my_pokemon_team
 
-    volumes:
-      - postgres:/var/lib/postgres/data
-
-    networks:
-      - spring-boot-network
-
-  spring-boot-app:
+  backend:
     build:
-      context: /my_pokemon_team
-    container_name: pokemon-backend-cont
+      context: my_pokemon_team
+    container_name: pokemon-backend
     image: pokemon-backend
     environment:
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       DATABASE_URL: ${DATABASE_URL}
       JWT_SECRET: ${JWT_SECRET}
-      DATABASE_USER: ${DATABASE_USER}
-    networks:
-      - spring-boot-network
-    depends_on:
-      - postgres
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
 
 
   frontend:
     build:
       context: .
       dockerfile: my_pokemon_team_express/Dockerfile
-    container_name: pokemon-frontend-cont
+    container_name: pokemon-frontend
     image: pokemon-frontend
+    environment:
+      BACKEND_URL: ${BACKEND_URL}
     ports:
       - "3000:3000"
-    networks:
-      - spring-boot-network
-
-volumes:
-  postgres:
-
-networks:
-  spring-boot-network:
-    driver: bridge
